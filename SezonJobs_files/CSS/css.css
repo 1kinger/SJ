@@ -1,0 +1,44 @@
+body, html {
+  height: 100%;
+  font-family: "Inconsolata", sans-serif;
+}
+
+.bgimg {
+  background-position: center;
+  background-size: cover;
+  background-image: url("../MEDIA/coffeeshop.jpg");
+  min-height: 75%;
+}
+
+
+#SLK_slika{
+	width:100%;
+	max-width:1000px;
+	margin-top:32px;
+}
+
+#MYLII_bezch{
+	position: absolute;
+	margin-top: -30px;
+}
+
+
+#KNDE_myall{
+	width: 50px;
+	height: 50px;
+	margin: auto;
+	border-radius: 15px;
+	display: inherit;
+	position: initial;
+	background: azure;}
+#KNDE_myallSVG {
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(0.3);
+	z-index: 0;
+	cursor: pointer;
+	display: flex;
+	width: 160px;
+	height: 160px;}
+	
+	
