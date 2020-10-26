@@ -23,7 +23,7 @@ if (DODATOK.includes("#")){
 	JOB_ID=DODATOK.slice(DODATOK.length-6);}
 
 ///ovie se dodadeni kakotestiracki elementi !!!
-USER="bbbbb";            /// bbbbb
+//USER="bbbbb";            /// bbbbb
 //JOB_ID="pjslj9";//"oil0zf";           paw58y     bbbbb#    pjslj9
 
 
