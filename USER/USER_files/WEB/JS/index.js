@@ -18,16 +18,18 @@ document.getElementsByClassName("containerX")[0].style="opacity:1;";
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 ///  firebase.analytics();
-  
+  ///////////// na signapot ima problemii !!!!
+///////////////////////////////////////// da gi pravi u lovercase username i email !!!
+//////////////////////////////////////////  pravi erori ako se so razlicni cajsovi !!!
+/////////////////////////////////////////         da se onadat pred da se pusti u produkcija !!
 
 
 var IME=document.getElementById("demo22");
 
 var MyallBase = firebase.database().ref();
+var XCOD;//glavno takvo potpisano            neka bide globalno poslem ke se skrie
+var USerko;                            ///// da se izbrise od globalni takvo !!!
 
-var USerko;
-var p0=false;var p1=false;var p2=false;
-var Parametar=[p0,p1,p2];
 
 function Imenik (a){
 b="https://sezonjobs.sytes.net/";
@@ -50,7 +52,7 @@ snd2ckU(a);
 
 function CEp(a){A=a.value;pasot(A);}
 
-
+var p0=false;var p1=false;var p2=false; var Parametar=[p0,p1,p2];
 function usrFRE(a){if(a){document.getElementById("ErorTXT").innerHTML="";Parametar[0]=true;}else{document.getElementById("ErorTXT").innerHTML="this username is alredy taken";Parametar[0]=false;}}
 function mailFRE(a){if(a){document.getElementById("ErorTXT").innerHTML="";Parametar[1]=true;}else{document.getElementById("ErorTXT").innerHTML="this email is alredy used ";Parametar[1]=false;}}
 function pasot(a){if(a.length>7){document.getElementById("ErorTXT").innerHTML="";Parametar[2]=true;}else{document.getElementById("ErorTXT").innerHTML="pasword must be over 8 charakters";Parametar[2]=false;}}
@@ -70,6 +72,7 @@ EEE=BAZATA;if(EEE==null){mailFRE(true);}else{mailFRE(false);}});
 
 function OKname(a){
 if((a.includes("/"))||
+   (a.includes("USER"))||
    (a.includes("#"))||
    (a.includes("."))||
    (a.includes(","))||
@@ -84,35 +87,40 @@ if((a.includes("/"))||
 {return false;}else{return true;}}
 
 
-var USERdef;
-var mailID;
-var CC,DD;
+
+////E_U pravi cek na emailot i usernameto !!!
 
 
- var  OKO=0;
- 
-function KOJeOVOJ(a){ /// ovdeka se pravi updajtot za userko
-
-			
+var USER=null;//// da se stavat pod ovoa !! /// ovije pravat cekovi 
+function KOJeOVOJ(a){
+	
 		mailID=a.slice(0,a.length-4);
 		
-		USERdef="REG@/"+mailID;
-		
-MyallBase.child(USERdef);
-MyallBase.once("value")
+	
+EU="E_U@/"+mailID;
+MyallBase.child(EU).once("value")
   .then(function(snapshot) {
-     CC = snapshot.val();
+     CEKuser = snapshot.val();
 	 
- DD=CC["REG@"][mailID];
- 
-	if(DD!=undefined){
-		console.log("ovaj postoi  user ",mailID);
-		      document.getElementById("user_para").innerHTML = "https://sezonjobs.sytes.net<br>/" + DD; LOADNIall();
-		}else{
-		console.log("ovaj user  go nema  WELCOME",mailID);}
-  });	 
+	if(CEKuser!=undefined){USER=CEK_XCOD(CEKuser);}
+	else{console.log("ovaj user  go nema  WELCOME",mailID);}
+
+
+  });
+
+  
 }
 
+function CEK_XCOD(a){
+USERdef="REG@/"+mailID+"/"+a;
+MyallBase.child(USERdef).once("value")
+  .then(function(snapshot) {
+     XCOD = snapshot.val();
+	
+	if(XCOD!=undefined){   
+		console.log("ovaj postoi  user ",mailID);LOADNIall();}
+		
+  });return a;}
 
 		
 
@@ -139,8 +147,6 @@ KOJeOVOJ(user.email);	// go pozdravuva akkauntot
 	  document.getElementById("NVG").style="display:block;";
 	   
  
-	  
-	  
 
     }
 
@@ -211,37 +217,29 @@ setTimeout(function(){
 	
 SJ_NEW={
 PROFIL:{
+	USER:{0:"0"},
 	FOTO:{Fime:"",Flink:false},
 	REG:{ID:"",email:"",veri:0},
 	UserLink:{URL:"",URL_status:false},
 	SETINGS:{IME:"",PROFIL_STATUS:true,PROFIL_SEY:""},
-	CONTACT:{C_text:"",MYALL:false}
+	CONTACT:{C_text:"",MYALL:false},
+	BALANCE:{ KUPON_COD:{0:"kupon_STATUS"},J:{0:"0"}}
 	},
 JOB_LISTA:{J_Lista:[""]},
-JOB_SCHEMA:{J_TITLE:"",J_DES:"",J_STATUS:false,J_CAT:[0],J_ADDRESE:"",J_PEY:[0,[0]],J_TIME:[[0,0],[0,0]],J_CONTACT:["",[false]],J_JOBREF:"",
-
-       J_FOTO:[
-		   {Fname:"",Flink:""},
-		   {Fname:"",Flink:""},
-		   {Fname:"",Flink:""},
-		   {Fname:"",Flink:""},
-		   {Fname:"",Flink:""},
-		   {Fname:"",Flink:""},
-		   {Fname:"",Flink:""},
-		   {Fname:"",Flink:""},
-		   {Fname:"",Flink:""},
-		   {Fname:"",Flink:""},
-		   {Fname:"",Flink:""},
-		   {Fname:"",Flink:""}
-           ]},
-	   
 JOB_LINKS:{J_Links:[""]},
 J_DNS:{j_dns:["ADDup"]}}
-	
-firebase.database().ref().child("REG@").child(eMAIL).set(USerko);
-firebase.database().ref().child("URLuser").child(USerko).set(SJ_NEW);
 
-firebase.database().ref().child("URLuser").child(USerko).child("PROFIL").child("REG").child("email").set(email);
+
+t=new Date().getTime();T0=t.toString(36);T1=t.toString(16); XCOD=T0+"@"+USerko+"@"+T1;
+///XKOD mi treba da gi potpisuvam taka
+firebase.database().ref().child("E_U@/"+eMAIL).set(USerko);
+firebase.database().ref().child("REG@/"+eMAIL+"/"+USerko).set(XCOD);
+firebase.database().ref().child("URLuser/"+XCOD).set(SJ_NEW);
+
+var Jn=new Date();var YEARn=Jn.getUTCFullYear();YEARn="J_"+YEARn;ADD_YEAR(USerko,YEARn);
+
+firebase.database().ref().child("URLuser/"+XCOD+"/PROFIL/USER").set(USerko);
+firebase.database().ref().child("URLuser/"+XCOD+"/PROFIL/REG/email").set(email);
 
 	alert("accaunt sucsecsful created ");
 
@@ -258,6 +256,16 @@ document.getElementById("ErorTXT").innerHTML=TXTO;}
 }
 
 
+function ADD_YEAR(a,j){J_0_DATA={M_1:{S_M_S:0,MMFU:0,UPLATA:0},M_2:{S_M_S:0,MMFU:0,UPLATA:0},M_3:{S_M_S:0,MMFU:0,UPLATA:0},M_4:{S_M_S:0,MMFU:0,UPLATA:0},M_5:{S_M_S:0,MMFU:0,UPLATA:0},M_6:{S_M_S:0,MMFU:0,UPLATA:0},M_7:{S_M_S:0,MMFU:0,UPLATA:0},M_8:{S_M_S:0,MMFU:0,UPLATA:0},M_9:{S_M_S:0,MMFU:0,UPLATA:0},M_10:{S_M_S:0,MMFU:0,UPLATA:0},M_11:{S_M_S:0,MMFU:0,UPLATA:0},M_12:{S_M_S:0,MMFU:0,UPLATA:0}};
+firebase.database().ref().child("URLuser/"+XCOD+"/PROFIL/BALANCE/J/"+j).set(J_0_DATA);}
+
+function CHEK_ADD_YEAR(U){var J=new Date();var YEAR=J.getUTCFullYear();YEAR="J_"+YEAR;
+if(GTD["PROFIL"]["BALANCE"]["J"][YEAR]==undefined){ADD_YEAR(U,YEAR);}}
+	
+function CEK_BALANS(a){J=new Date();M=1+J.getUTCMonth();YEAR="J_"+J.getUTCFullYear();M="M_"+M;
+	podatok=a["PROFIL"]["BALANCE"]["J"][YEAR][M];
+	console.log(podatok);}	
+
 function SND_vrf(a){var user = firebase.auth().currentUser;
 	if(a==0){
 user.sendEmailVerification().then(function() {
@@ -271,7 +279,7 @@ user.sendEmailVerification().then(function() {
 }
 
 if (user.emailVerified) {
-if(a!=true){MyallBase.child("URLuser").child(DD).child("PROFIL").child("REG").child("veri").set(true);}}
+if(a!=true){MyallBase.child("URLuser").child(XCOD).child("PROFIL").child("REG").child("veri").set(true);}}
 }
 
 function Aktiv(a,n){ b=a.children[0];
@@ -340,7 +348,7 @@ UPD_Pic.addEventListener("change", function(e){
 	
 	var file = e.target.files[0];
 	
-var storageRef= firebase.storage().ref().child("USER_pic").child(DD).child("PROFIL_pic/"+file.name);
+var storageRef= firebase.storage().ref().child("USER_pic/"+XCOD+"/PROFIL_pic/"+file.name);
 
 var task=storageRef.put(file);  /// ova funkcionira kako sto treba
 
@@ -362,7 +370,7 @@ reader.onload = function (){
 FTO_UPLOAD_view.src =reader.result;}
 reader.readAsDataURL(file);
 
-firebase.database().ref().child("URLuser").child(DD).child("PROFIL").child("FOTO").child("Fime").set(file.name);
+firebase.database().ref().child("URLuser/"+XCOD+"/PROFIL/FOTO/Fime").set(file.name);
 
 NOVO_FOTO_iME=file.name;
 
@@ -412,14 +420,14 @@ a=document.getElementById("PROFIL_status").value.slice(0,200);
 document.getElementById("PRO_STATUS").innerHTML=a;
 
 if(b!=a){
-firebase.database().ref().child("URLuser").child(DD).child("PROFIL").child("SETINGS").child("PROFIL_SEY").set(a);}}
+firebase.database().ref().child("URLuser/"+XCOD+"/PROFIL/SETINGS/PROFIL_SEY").set(a);}}
 
 function promeniTUKA(){
 	if(FTO_url!=false){
 stara_FTOname=GTD["PROFIL"]["FOTO"]["Fime"];
 if(stara_FTOname!=NOVO_FOTO_iME){
 document.getElementById("PROFI_pic").src=FTO_url;
-firebase.database().ref().child("URLuser").child(DD).child("PROFIL").child("FOTO").child("Flink").set(FTO_url);}
+firebase.database().ref().child("URLuser/"+XCOD+"/PROFIL/FOTO/Flink").set(FTO_url);}
 
 }}
 
@@ -447,10 +455,10 @@ M_btn.style.display="none";
 
 
 V=M_box;
-firebase.database().ref().child("URLuser").child(DD).child("PROFIL").child("CONTACT").child("MYALL").set(V);
+firebase.database().ref().child("URLuser/"+XCOD+"/PROFIL").child("CONTACT").child("MYALL").set(V);
 
 if(c_text!=C_contact_INput){a=C_contact_INput;
-firebase.database().ref().child("URLuser").child(DD).child("PROFIL").child("CONTACT").child("C_text").set(a);}
+firebase.database().ref().child("URLuser/"+XCOD+"/PROFIL").child("CONTACT").child("C_text").set(a);}
 
 }
 
@@ -482,7 +490,7 @@ LOPCI.style="display: none;";}
 function Job_Formular(){
 //jobsemata sa se updajtira so taa od SJ da ne se zaboravi !!
 
-JOB_SCHEMA={J_TITLE:"",J_DES:"",J_STATUS:false,J_CAT:[0],J_ADDRESE:"",J_PEY:[0,[0]],J_TIME:[[0,0],[0,0]],J_CONTACT:["",[false]],J_JOBREF:"",
+JOB_SCHEMA={J_TITLE:"",J_DES:"",J_STATUS:false,J_CAT:[0],J_LOKATION:[0,0],J_ADDRESE:"",J_PEY:[0,[0]],J_TIME:[[0,0],[0,0]],J_CONTACT:["",[false]],J_JOBREF:"",
 
        J_FOTO:[
 		   {Fname:"",Flink:""},
@@ -506,10 +514,15 @@ JOB_SCHEMA={J_TITLE:"",J_DES:"",J_STATUS:false,J_CAT:[0],J_ADDRESE:"",J_PEY:[0,[
 	JOB_SCHEMA["J_TITLE"]=     t[0].value;
 	JOB_SCHEMA["J_DES"]=       t[1].value;
 	JOB_SCHEMA["J_ADDRESE"]=   t[2].value;
-	JOB_SCHEMA["J_CAT"]=       t[3].value;
+	JOB_SCHEMA["J_CAT"]=       t[3].value;                
 	JOB_SCHEMA["J_PEY"][0]=    t[4].value;
 	JOB_SCHEMA["J_CONTACT"][0]=t[5].value;
 	JOB_SCHEMA["J_JOBREF"]=    t[6].value;
+	
+	J_lokacija=[0,0];
+	J_lokacija[0]=document.getElementById("Drzavi").value;
+	J_lokacija[1]=document.getElementById("RegionS").value;
+		JOB_SCHEMA["J_LOKATION"]=J_lokacija;
 	
 	o=document.getElementsByClassName("SLKT");
 	JOB_SCHEMA["J_TIME"][0][0]=o[0].value;
@@ -520,16 +533,18 @@ JOB_SCHEMA={J_TITLE:"",J_DES:"",J_STATUS:false,J_CAT:[0],J_ADDRESE:"",J_PEY:[0,[
 	
 	return JOB_SCHEMA;}
 
-
+var JOB_COD;                        var Dr_n; var Re_n; var A_D; //// za testiraneje
 function JOB_update(){           ///////// na okej baton se pravi ovaaa F
 
 JOB_SCHEMA=Job_Formular();
 
-if(j_oglas==null){
+var DEL_Action=true; var Razlicen_J_STATUS=false;  /// dali da se deletne kontraAD od databazata
+
+if(j_oglas==null){  DEL_Action=false;/// za da go deletne toa od deaktiv
 
 t=new Date().getTime();T=t.toString(36);T=T.slice(2);//kgmrv45x  ==> mrv45x
 JOB_COD=T;          
-DnS=DD+"#"+JOB_COD;
+S_DNS=USER+"@"+JOB_COD;          DnS=USER+"#"+JOB_COD;
 j_oglas=JOB_COD;
 
 OutJ_L=GTD["JOB_LINKS"]["J_Links"];
@@ -538,15 +553,31 @@ UpJ_L=OutJ_L;  UpJ_L.push(JOB_COD);
 OutJ_DNS=GTD["J_DNS"]["j_dns"];
 UpJ_DNS=OutJ_DNS; UpJ_DNS.push(DnS);
 
+Dr_n="Dr"+JOB_SCHEMA["J_LOKATION"][0];
+Re_n="Re"+JOB_SCHEMA["J_LOKATION"][1];
 
-	firebase.database().ref().child("URLuser").child(DD).child("JOB_LISTA/"+JOB_COD).push("");//kreira prazno takvo JOB ime e imeto na toa childot!!
-    firebase.database().ref().child("URLuser").child(DD).child("JOB_LINKS/J_Links").set(UpJ_L);
+if(JOB_SCHEMA["J_STATUS"]){A_D="A";}else{A_D="D";}
+
+
+
+	firebase.database().ref().child("URLuser/"+XCOD+"/JOB_LISTA/"+JOB_COD).push("");//kreira prazno takvo JOB ime e imeto na toa childot!!
+    firebase.database().ref().child("URLuser/"+XCOD+"/JOB_LINKS/J_Links").set(UpJ_L);
     
-	firebase.database().ref().child("URLuser").child(DD).child("J_DNS/j_dns").set(UpJ_DNS);
+	firebase.database().ref().child("URLuser/"+XCOD+"/J_DNS/j_dns").set(UpJ_DNS);
+
+
+	firebase.database().ref().child("J_SEARCH/"+Dr_n+"/"+Re_n+"/"+A_D+"/"+S_DNS+"/"+JOB_COD).push("");
+
+
 	
 }else{JOB_COD=j_oglas;
 
-for(i=0;i<12;i++){
+// segasnijot dali e razlicen od taj sto e zeman od databazata pred da se isprati
+if(JOB_SCHEMA["J_STATUS"]!=GTD["JOB_LISTA"][JOB_COD]["J_STATUS"]){
+	Razlicen_J_STATUS=true;}
+
+
+for(i=0;i<12;i++){ 
 	JOB_SCHEMA["J_FOTO"][i]["Fname"]=GTD["JOB_LISTA"][JOB_COD]["J_FOTO"][i]["Fname"];
 	JOB_SCHEMA["J_FOTO"][i]["Flink"]=GTD["JOB_LISTA"][JOB_COD]["J_FOTO"][i]["Flink"];
 }
@@ -558,12 +589,20 @@ for(i=0;i<12;i++){
 
 
 
-firebase.database().ref().child("URLuser").child(DD).child("JOB_LISTA/"+JOB_COD).set(JOB_SCHEMA);
+firebase.database().ref().child("URLuser/"+XCOD+"/JOB_LISTA/"+JOB_COD).set(JOB_SCHEMA);
+
+
+var Kontra_AD;
+if(JOB_SCHEMA["J_STATUS"]){A_D="A";Kontra_AD="D";}else{A_D="D";Kontra_AD="A";}
+
+if(DEL_Action&&Razlicen_J_STATUS){
+firebase.database().ref().child("J_SEARCH/"+Dr_n+"/"+Re_n+"/"+Kontra_AD+"/"+S_DNS).set(null);}
+
+firebase.database().ref().child("J_SEARCH/"+Dr_n+"/"+Re_n+"/"+A_D+"/"+S_DNS+"/"+JOB_COD).set(JOB_SCHEMA);
 	
 	modal_JOB.style.display="none";
 	
-DAJval("PROFIL","RANK",0);// kolku da go dada g t d
-}
+DAJval(XCOD);}
 
 
 
@@ -572,7 +611,7 @@ function GETaccSTATUS(a){if(SW.checked!=a){SW.parentElement.click();}}
 
 function STATS(A){a=A.checked;
 if(GTD["PROFIL"]["SETINGS"]["PROFIL_STATUS"]!=a){
-MyallBase.child("URLuser").child(DD).child("PROFIL").child("SETINGS").child("PROFIL_STATUS").set(a);}}
+MyallBase.child("URLuser/"+XCOD+"/PROFIL").child("SETINGS").child("PROFIL_STATUS").set(a);}}
 
 
 
@@ -580,12 +619,12 @@ MyallBase.child("URLuser").child(DD).child("PROFIL").child("SETINGS").child("PRO
 
 function LOADNIall(){
 	
-DAJval("PROFIL","RANK",0);
-	
+DAJval(XCOD);u=
+document.getElementById("user_para").innerHTML = "https://sezonjobs.sytes.net<br>/" + USER;
 };
 
 
-function puniLokalno(){
+function puniLokalno(){                    CHEK_ADD_YEAR(GTD);//adnuva godinski bilans
 GETaccSTATUS(GTD["PROFIL"]["SETINGS"]["PROFIL_STATUS"]);
 
 
@@ -633,24 +672,22 @@ PUNItablata();/// loadne
  
  
 var GTD;
-function DAJval(a,b,ELEM){LINKtxt="URLuser/"+DD+"/"+a+"/"+b;  
-MyallBase.child(LINKtxt);
-MyallBase.once("value")
+function DAJval(a){LINKtxt="URLuser/"+a;
+MyallBase.child(LINKtxt).once("value")
   .then(function(snapshot) {
-     toBACK = snapshot.val();
-	 GTD=toBACK["URLuser"][DD];
- toBACK=toBACK["URLuser"][DD][a][b];
- 
- //UPDATE(ELEM,toBACK);
+     GTD=snapshot.val();
+	 
+	 
 puniLokalno();
 
   });	
 }
 
+var JJ; var j_oglas;
 function MDL_JOB(a){  PREmodSET(a);
 	
 if(a){
-A=a.parentElement.children[0].children[0].getAttribute("j_id");
+A=a.parentElement.children[0].children[0].getAttribute("j_id"); JJ=A;
 JOB_data(A);      j_oglas=A;
 }else{DefalSET(); j_oglas=a;}
 
@@ -666,7 +703,7 @@ document.getElementsByClassName("InfoMode")[0].style.display="block";
 document.getElementsByClassName("w3-main w3-content")[0].style.display="none";}}
 		
 function DefalSET(){
-document.getElementById("SHW_link").innerHTML="/"+DD+"#jobID";
+document.getElementById("SHW_link").innerHTML="/"+USER+"#jobID";
 	
 	document.getElementsByClassName("j_status")[0].children[0].checked=true;
 	if(document.getElementsByClassName("j_status")[0].children[0].checked!=true){
@@ -674,6 +711,10 @@ document.getElementById("SHW_link").innerHTML="/"+DD+"#jobID";
 	}
 	textove=document.getElementsByClassName("inputTXT");
 	for(i=0;i<textove.length;i++){textove[i].value="";}
+	
+	document.getElementById("Drzavi").value=0;
+    document.getElementById("RegionS").style.display="none";
+	CEKIRAJ_cat(null);
 	
 	NoImG=document.getElementsByClassName("far fa-image blankIMG");
 	Simg=document.getElementsByClassName("SHOWimg");
@@ -690,13 +731,26 @@ document.getElementById("SHW_link").innerHTML="/"+DD+"#jobID";
 	
 	
 	}
+	
+	
+function RegionS(a){ if(a!=0){      
+document.getElementById("RegionS").style="margin: 15px;max-width:120px;";
+document.getElementById("RegionS").value=0;
+for(i=1;i<33;i++){
+  if(i<Drzavi[a][1].length+1){
+    document.getElementById("RegionS").children[i].style="display:block;";
+    document.getElementById("RegionS").children[i].innerHTML=Drzavi[a][1][i-1];
+  }else{document.getElementById("RegionS").children[i].style="display:none;";}}
+  }else{document.getElementById("RegionS").style="display:none;";}}
+ 
+ 
 
 
 function JOB_data(a){ THIS_JOB=GTD["JOB_LISTA"][a];
 		
 //	JOB_SCHEMA:{J_TITLE:"",J_DES:"",J_STATUS:false,J_CAT:[0],J_ADDRESE:"",J_PEY:[0,[0]],J_TIME:[[0,0],[0,0]],J_CONTACT:["",[false]],J_JOBREF:"",J_FOTO:{f0:"",f1:"",f2:"",f3:"",f4:"",f5:"",f6:"",f7:"",f8:"",f9:"",f10:"",f11:""}},
 
-document.getElementById("SHW_link").innerHTML="/"+DD+"#"+a;
+document.getElementById("SHW_link").innerHTML="/"+USER+"#"+a;
 	
 	if(document.getElementsByClassName("j_status")[0].children[0].checked!=THIS_JOB["J_STATUS"]){
 	document.getElementsByClassName("j_status")[0].click();/// kontra i klik	
@@ -713,6 +767,14 @@ document.getElementById("SHW_link").innerHTML="/"+DD+"#"+a;
 	t[5].value=THIS_JOB["J_CONTACT"][0];
 	t[6].value=THIS_JOB["J_JOBREF"];
 	
+	
+     document.getElementById("Drzavi").value=THIS_JOB["J_LOKATION"][0];
+	 RegionS(THIS_JOB["J_LOKATION"][0]);
+	document.getElementById("RegionS").value=THIS_JOB["J_LOKATION"][1];
+		
+		
+	                 	CEKIRAJ_cat(THIS_JOB["J_CAT"]);             /////////////   !!!!!! ova ebava
+		
 	
 	NoImG=document.getElementsByClassName("far fa-image blankIMG");
 	Simg=document.getElementsByClassName("SHOWimg");
@@ -755,7 +817,7 @@ J_ID=FOTO_model.getAttribute("job_id");
 	
 	var file = e.target.files[0];
 	
-var storageRef= firebase.storage().ref().child("USER_pic").child(DD).child("JOB_ID/"+J_ID+"/"+file.name);
+var storageRef= firebase.storage().ref().child("USER_pic/"+XCOD+"/JOB_ID/"+J_ID+"/"+file.name);
 
 var task=storageRef.put(file);  /// ova funkcionira kako sto treba
 
@@ -781,7 +843,7 @@ document.getElementById("noFOTO").style="display:none;";
 FTO_J_preview.src =reader.result;}
 reader.readAsDataURL(file);
 
-firebase.database().ref().child("URLuser").child(DD).child("JOB_LISTA").child(J_ID).child("J_FOTO").child(F_N).child("Fname").set(file.name);
+firebase.database().ref().child("URLuser/"+XCOD+"/JOB_LISTA").child(J_ID).child("J_FOTO").child(F_N).child("Fname").set(file.name);
 
 NOVO_J_FOTO_iME=file.name;
 
@@ -836,8 +898,8 @@ if(stara_JOBfoto!=NOVO_J_FOTO_iME){
 document.getElementsByClassName("far fa-image blankIMG")[F_N].style.display="none";
 document.getElementsByClassName("SHOWimg")[F_N].src=J_FOTO_url;
 document.getElementsByClassName("SHOWimg")[F_N].style.display="block";
-firebase.database().ref().child("URLuser").child(DD).child("JOB_LISTA").child(J_ID).child("J_FOTO").child(F_N).child("Fname").set(NOVO_J_FOTO_iME);
-firebase.database().ref().child("URLuser").child(DD).child("JOB_LISTA").child(J_ID).child("J_FOTO").child(F_N).child("Flink").set(J_FOTO_url);
+firebase.database().ref().child("URLuser/"+XCOD+"/JOB_LISTA").child(J_ID).child("J_FOTO").child(F_N).child("Fname").set(NOVO_J_FOTO_iME);
+firebase.database().ref().child("URLuser/"+XCOD+"/JOB_LISTA").child(J_ID).child("J_FOTO").child(F_N).child("Flink").set(J_FOTO_url);
 }
 }FOTO_model.style='display:none;';}
 
@@ -845,21 +907,35 @@ firebase.database().ref().child("URLuser").child(DD).child("JOB_LISTA").child(J_
 else{// ja brise
 document.getElementsByClassName("far fa-image blankIMG")[F_N].style.display="inline-block";
 document.getElementsByClassName("SHOWimg")[F_N].style.display="none";
-firebase.database().ref().child("URLuser").child(DD).child("JOB_LISTA").child(J_ID).child("J_FOTO").child(F_N).child("Fname").set("");
-firebase.database().ref().child("URLuser").child(DD).child("JOB_LISTA").child(J_ID).child("J_FOTO").child(F_N).child("Flink").set("");
+firebase.database().ref().child("URLuser/"+XCOD+"/JOB_LISTA").child(J_ID).child("J_FOTO").child(F_N).child("Fname").set("");
+firebase.database().ref().child("URLuser/"+XCOD+"/JOB_LISTA").child(J_ID).child("J_FOTO").child(F_N).child("Flink").set("");
 
 FTO_J_preview.style="display:none;";
 document.getElementById("noFOTO").style="display:block;";}
 
-DAJval("PROFIL","RANK",0);}
+DAJval(XCOD);}
 
 ///////////var JOB_Link=["qwert","qaz","trute"]; ///// ova da bidat tie dns kodove
 var OGLASmeni;
 var staraTabela;
 var  novaTabela;
 function DELtablata(a){
-	if(a){
-	firebase.database().ref().child("URLuser").child(DD).child("JOB_LISTA/"+a).set(null);//kreira prazno takvo JOB ime e imeto na toa childot!!
+	if(a){ var ad;if(GTD["JOB_LISTA"][a]["J_STATUS"]){ad="A";}else{ad="D";}
+		
+	 Sdns=USER+"@"+a;
+
+
+D_r="Dr"+GTD["JOB_LISTA"][a]["J_LOKATION"][0];
+R_e="Re"+GTD["JOB_LISTA"][a]["J_LOKATION"][1];
+
+ADD_KOD="J_SEARCH/"+D_r+"/"+R_e+"/"+ad+"/"+Sdns;
+firebase.database().ref().child(ADD_KOD).set(null);	
+		
+		
+		
+		
+		
+	firebase.database().ref().child("URLuser/"+XCOD+"/JOB_LISTA/"+a).set(null);//kreira prazno takvo JOB ime e imeto na toa childot!!
 
 staraTabela=GTD["JOB_LINKS"]["J_Links"];
 
@@ -867,9 +943,9 @@ for(i=0;i<staraTabela.length;i++){
 	if(staraTabela[i]==a){staraTabela[i]=null;
 	
 novaTabela=staraTabela;
-firebase.database().ref().child("URLuser").child(DD).child("JOB_LINKS/J_Links").set(novaTabela);
+firebase.database().ref().child("URLuser/"+XCOD+"/JOB_LINKS/J_Links").set(novaTabela);
 
-DAJval("PROFIL","RANK",0);		break;}}
+DAJval(XCOD);		break;}}
 
 
 }   	
@@ -877,14 +953,46 @@ DAJval("PROFIL","RANK",0);		break;}}
 	
 }
 
+///////////////////////////////////////////////balance model  
+var BLNC_M=document.getElementById("Modal_BALANCE");BLNC_M.style="z-index:3;";
 
 
-function T_J_switch(a){   V=a.checked;
+function OPEN_BALANCE(){BLNC_M.style.display="block";
+	XX="ova se dodava sea !!"
+	PUNI_T_BALANCE(XX);                          //uerskoto ime
+}
+
+function PUNI_T_BALANCE(a){/// a parametar
+S_MESEC_SALDO=	document.getElementsByClassName("B_SS");
+UPLATA=			document.getElementsByClassName("B_IN");
+MAX_F_U=		document.getElementsByClassName("B_MMFU");
+E_MESEC_SALDO=	document.getElementsByClassName("B_ES");
+
+
+}
+
+///////////////////////////////////////////////////////
+
+
+
+function T_J_switch(a){V=a.checked; var a_d;  
 sifra=a.parentElement.parentElement.children[0].children[0].getAttribute("j_id");
+SEGASNOTO=GTD["JOB_LISTA"][sifra]; SEGASNOTO["J_STATUS"]=V; s_dns=USER+"@"+sifra;
 
-firebase.database().ref().child("URLuser").child(DD).child("JOB_LISTA/"+sifra+"/J_STATUS").set(V);
+var Contra_AD;if(V){a_d="A";Contra_AD="D";}else{a_d="D";Contra_AD="A";}
 
-DAJval("PROFIL","RANK",0);	}   
+Dr="Dr"+GTD["JOB_LISTA"][sifra]["J_LOKATION"][0];
+Re="Re"+GTD["JOB_LISTA"][sifra]["J_LOKATION"][1];
+
+ADD_KOD="J_SEARCH/"+Dr+"/"+Re+"/"+a_d+"/"+s_dns;
+firebase.database().ref().child(ADD_KOD).set(SEGASNOTO);
+
+DEL_KOD="J_SEARCH/"+Dr+"/"+Re+"/"+Contra_AD+"/"+s_dns;
+firebase.database().ref().child(DEL_KOD).set(null);
+
+firebase.database().ref().child("URLuser/"+XCOD+"/JOB_LISTA/"+sifra+"/J_STATUS").set(V);
+
+DAJval(XCOD);	}   
 
 
 
@@ -927,16 +1035,5 @@ function TablaTXT(){N=document.getElementsByClassName("vertical-menu")[0].childE
 txt="No job in joblista..";if(N>1){txt="Smart search with ctrl+F";}
 document.getElementsByClassName("vertical-menu")[0].children[0].innerHTML=txt;}	
 	
-
-//// rastestira KUNDE page
-//// rastestira Oglas page
-//// rastestira MIAIN oglasna tabla
-
-//// da se onade toa za kategorite selekt
-
-
-
-//da se rasciti kodot
-
 
 //da se stavi takvo kako za sodrzina za ideto

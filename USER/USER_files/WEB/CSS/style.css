@@ -137,8 +137,28 @@ input:checked + .slider:before {
 display: ruby-base;
 font-weight: bold;
 }
-
-
+/******************** balance tablata************************/
+table {
+  width:100%;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+#T_BALAMCE tr:nth-child(even) {
+  background-color: #eee;
+}
+#T_BALAMCE tr:nth-child(odd) {
+ background-color: #fff;
+}
+#T_BALAMCE th {
+  background-color: black;
+  color: white;
+}
 
 /***************       tabelata usersaka profil page       */
 .vertical-menu {    
@@ -168,12 +188,14 @@ font-weight: bold;
 }
 .REZhdn {color: #f000;position: absolute;margin-left: 11px;}
 
-.EDITbtn {width: auto !important;
-padding: 6px !important;
-position: initial !important;
-margin-right: 10% !important;
-float: right !important;
-margin-top: -7px !important;}
+.EDITbtn {
+    width: auto !important;
+    padding: 6px !important;
+    position: absolute !important;
+    float: right !important;
+    margin-top: -28px !important;
+    z-index: 2 !important;
+    right: 25% !important;}
 
 .SWITCHtabela{float: right;margin-top: -8px;}
 
@@ -213,6 +235,7 @@ margin-top: -7px !important;}
   float: right;
   font-size: 28px;
   font-weight: bold;
+  opacity:1;
 }
 
 .close:hover,
@@ -340,6 +363,7 @@ font-size: 19px;}
 	font-size: 24px;
 	font-weight: bold;
 	position: relative;
+	top: 10px;
 	margin-left: 5px;}
 
 

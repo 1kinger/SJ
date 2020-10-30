@@ -27,16 +27,14 @@ if (DODATOK.includes("#")){
 //JOB_ID="pjslj9";//"oil0zf";           paw58y     bbbbb#    pjslj9
 
 
-function CEKuser(){USERlinkceto="URLuser/"+USER;
+function CEKuser(){USERlinkceto="REG@/"+USER;
 
 MyallBase.child(USERlinkceto);
 MyallBase.once("value")
   .then(function(snapshot) {
      CC = snapshot.val();
 	 
- DD=CC["URLuser"][USER];
- 
-	if(DD!=undefined){    
+	if(CC!=undefined){    
 		console.log("ovaj postoi  user ",USER);DD=true;}else{
 		console.log("ovaj user  go nema",USER);DD=false;}
  

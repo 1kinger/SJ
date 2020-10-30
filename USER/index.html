@@ -1,14 +1,27 @@
 <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Sezon Jobs</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+
+
+<link   type="text/css" href="../SezonJobs_files/DATA/CEK_CAT/dropdowntree.css" rel="stylesheet" >
+
+
   <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
   <link href="USER_files/WEB/CSS/style.css" rel="stylesheet"/>
   
   <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
 <script src='https://kit.fontawesome.com/a076d05399.js' type="text/javascript"></script>
 	
 
 
+
+
+	
 </head><body>
 
 
@@ -43,6 +56,9 @@
 <button type="button" onclick="MDL_JOB(null);" style="position: absolute;top: 250px;right: 0px;width: auto;margin: 20px;right: 0px;margin-right: 0px;color:gold;">add Job</button>
 <button type="button"  onclick="STATS(SW);logout();" style="z-index:2;position: absolute;top: 0px;right: 0px;width: auto;margin: 20px;" >Logout</button>
 
+
+<button type="button" id="BLNC_btn" onclick="OPEN_BALANCE();" style="text-align:center;z-index:2;position: absolute;top: 40.3%;/*! right: 50%; */width: 100px;/*! margin: 20px; */left: 50%;margin-left: -50px;padding: 0px;background: goldenrod;font-size: 16px;"><span style="font-size: 14px;opacity: 0.6;">BALANCE</span>
+<br><span id="BLNC_TXT" style="">35,7</span><span> $</span></button>
 
 <div class="vertical-menu"> <a style="border-radius: 55px 0px 0px 0px;text-align:center; background-color:darkgray;color:white;cursor: auto;"></a><a style="display:none;"></a>
 <!-- se polne menito ---></div>
@@ -82,7 +98,7 @@
 
 
 
-  <div class="dropdown" id="MENIlink" style="float:right;">
+  <div class="dropdown" id="MENIlink" style="float:right;position: unset !important;">
     <button type="button"  class="dropbtn" onclick="DROPdwnbtn();" >Actions :
 <i class="fa fa-caret-down"></i>
     </button>
@@ -101,9 +117,44 @@
 
 <input class="inputTXT" type="text" id="LINK_txt" placeholder="JOB TITLE" name="Name" required>
 <textarea class="inputTXT" type="text" id="j_description" placeholder="what is going on??" name="Name" required></textarea>
-<input class="inputTXT" type="text" id="j_adresse" placeholder="JOB working location (plss enter full adress,)" name="Name" required>
-<input class="inputTXT" type="text" id="j_cat" placeholder="da se dodade selekcij 9 kategori po 9 rubriki" name="Name" required>
 
+
+
+  <div style="text-align: center;"><span>Job location..</span><br>
+   <select id="Drzavi"  style="margin: 15px;max-width: 120px;"  onchange="RegionS(this.value);"> 
+  <option value="0">Search Locations ...</option>
+  <option value="1">Germany</option>
+  <option value="2">USA</option>
+  <option value="3">RUSSIA</option></select>
+  
+   <select id="RegionS" style="display:none; max-width: 120px;">
+   <option value="0">Search Regions :....</option><option value="1"></option><option value="2"></option>
+   <option value="3"></option><option value="4"></option><option value="5"></option>
+   <option value="6"></option><option value="7"></option><option value="8"></option>
+   <option value="9"></option><option value="10"></option><option value="11"></option>
+   <option value="12"></option><option value="13"></option><option value="14"></option>
+   <option value="15"></option><option value="16"></option><option value="17"></option>
+   <option value="18"></option><option value="19"></option><option value="20"></option>
+   <option value="21"></option><option value="22"></option><option value="23"></option>
+   <option value="24"></option><option value="25"></option><option value="26"></option>
+   <option value="27"></option><option value="28"></option><option value="29"></option>
+   <option value="30"></option><option value="31"></option><option value="32"></option></select>
+</div>
+
+
+
+<input class="inputTXT" type="text" id="j_adresse" placeholder="JOB working location (plss enter full adress,)" name="Name" required>
+
+
+ <span style="display:block;text-align: center;">Category :</span>
+ <div class="dropdown dropdown-tree" id="example" style="display:inline-table;position: absolute;width: 80%;margin-left: 10%;"></div>  
+<br><br>
+
+<input class="inputTXT" type="text" id="j_cat" placeholder="minium 1 need" name="Name" disabled>
+
+    
+
+   
 <span style="display: inherit; margin: 15px;text-align: center;" >
 Job can start at :<select  class="SLKT" ><option value="0">Month ?</option>
   <option value="1">Jan</option><option value="2">Feb</option><option value="3">Mar</option>
@@ -255,11 +306,54 @@ Peyment
   </div>
 
 </div>
-<!-- --->
+
+
+<!-- model balance --->
+<div id="Modal_BALANCE" class="modal">
+ <div class="modal-content" style="background-color: #fefefe;padding: 3%;border: 1px solid #888;padding-bottom: 25px;">
+    <span class="close"  onclick="this.parentElement.parentElement.style='display:none;'">&times;</span>
+	
+
+
+	
+<table id="T_BALAMCE">
+<tr>
+<td class="B_SS"></td><td class="B_IN"></td><td class="B_MMFU"></td><td class="B_ES"></td>
+</tr>
+
+<tr>
+ <th>Start <br>Saldo</th>
+ <th>einzalung </th> 
+ <th>MAX F U</th>
+ <th>End <br>Saldo</th>
+</tr>
+
+<tr>
+<td class="B_SS"></td><td class="B_IN"></td><td class="B_MMFU"></td><td class="B_ES"></td>
+</tr>
+
+<tr>
+<td class="B_SS"></td><td class="B_IN"></td><td class="B_MMFU"></td><td class="B_ES"></td>
+</tr>
+
+<tr>
+<td class="B_SS"></td><td class="B_IN"></td><td class="B_MMFU"></td><td class="B_ES"></td>
+</tr></table>
+
+
+
+ </div>
+</div>
 
 
 
 
+
+
+
+
+
+<!-- -->
 <div id="Modal_FOTOset" class="modal">
 
   <!-- Modal content -->
@@ -353,5 +447,18 @@ Peyment
 
 <script src="USER_files/WEB/JS/index.js" type="text/javascript"></script>
  
+ 
+ 
+<script type="text/javascript" src="../SezonJobs_files/DATA/CEK_CAT/cek_cat.js" ></script>
+<script type="text/javascript" src="../SezonJobs_files/DATA/CEK_CAT/dropdowntree.js" ></script>
+
+
+
+<script type="text/javascript" src="../SezonJobs_files/DATA/LOKACI/lokaci.js"></script>
+
+<script type="text/javascript">$(document).ready(function(){
+$("#example").DropDownTree(options);
+
+});</script>
  
 </body></html>
