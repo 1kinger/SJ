@@ -18,20 +18,12 @@
 var DODATOK=window.location.href.slice(28);
 var Ltxt=document.getElementById("Loading");
 
-var JOB_ID=null;
-var USER="nunu0";
+var JOB_ID,USER;
 
 if (DODATOK.includes("#")){
 	  USER=DODATOK.slice(0,DODATOK.length-7);
 	JOB_ID=DODATOK.slice(DODATOK.length-6);
-CekJOB(USER,JOB_ID);}else{
-
-USER="nunu0";           
-//JOB_ID="3p7eqx";//n01234567#vkya72   bb12998#wc4cst 
-	
-	CekUSER(USER);
-//	  CekJOB(USER,JOB_ID);
-	}
+CekJOB(USER,JOB_ID);}else{CekUSER(USER);}
 
 if(JOB_ID){
 document.getElementById("K_4").style="display:none;";
