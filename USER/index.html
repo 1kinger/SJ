@@ -1,16 +1,11 @@
 <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Sezon Jobs</title>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js" type="text/javascript"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
-
-
 <link   type="text/css" href="../SezonJobs_files/DATA/CEK_CAT/dropdowntree.css" rel="stylesheet" >
-
-
   <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
   <link href="USER_files/WEB/CSS/style.css" rel="stylesheet"/>
   
@@ -18,17 +13,35 @@
 <script src='https://kit.fontawesome.com/a076d05399.js' type="text/javascript"></script>
 	
 
-
-
-
-	
 </head><body>
 
-
-	<!--   -->	
-<div id="NVG">	
+<div id="login_div" class="main-div"> <h3 id="TiTle">Welcome to Sezon Jobs<br>Profil meanagment </h3>
+      <img class="WelcomPIC" src="USER_files/MEDIA/SJ1000.png" >
+                     <p id="ErorTXT"></p>
+  <div id="Lin">	
+    <input type="email" placeholder="Email..." id="email_field_1" />
+    <input type="password" placeholder="Password..." id="password_field_1" />
+   <div>
+     <button type="button"  onclick="login();">Login to Account</button> <hr>
+     <button type="button"  onclick="SUP(true)">Sing Up</button> 
+     <button type="button"  style="position: absolute;z-index: -1;bottom: 0px;left:0px;margin: 10px;width: auto;background-color: cadetblue;color: white;" onclick="window.open('https://1kinger.github.io/web/#s4');">what is myall ?</button> <br>
+   </div>
+  </div>
 	
-  <div id="user_div" class="loggedin-div" style="display:contents; width: 100%; position: relative;">
+ <div id="Sup" style="display:none;">
+     <p id="TitLINK" class="TITlink">https://sezonjobs.sytes.net/1kinger</p>
+	 <input type="text" placeholder="1kinger" id="username_field" oninput="Imenik(this.value);" />
+     <input type="email" placeholder="Email..." id="email_field_2" oninput="CKMail(this.value);"  />
+     <input type="password" placeholder="Password..." id="password_field_2" oninput="PAS_L(this.value);" />
+   <div>	
+	 <button type="button"  onclick="SingUP();">Sing Up</button> <hr>
+     <button type="button"  onclick="SUP(false);">back</button> 
+  </div>
+ </div>
+</div>
+
+	
+<div id="user_div" class="loggedin-div" style="display:contents; width: 100%; position: relative;">
  
 <div class="containerX">
 <img id="PROFI_pic" style="position:absolute;border-radius:100%;left: 0px;top: 100px;width:auto;height: auto;max-width: 19vw;max-height: 19vh;">
@@ -42,10 +55,10 @@
 	
 	</div>
  
- <h3 id="user_para" style="text-align: center; margin: auto;position: relative;z-index:1;"></h3>
+ <h3 id="user_para" style="text-align: center; margin: auto;position: relative;z-index:1font-family:'Nunito';font-weight: bold;"></h3>
 
-<div style="z-index:2;position: absolute;top: 0px;left: 0px;margin: 20px;font-size: x-large;font-weight: bold;">
-<label class="switch" onclick="Aktiv(this,0);" >
+<div  style="z-index:2;position: absolute;top: 0px;left: 0px;margin: 20px;font-size: x-large;font-weight: bold;">
+<label class="switch" onclick="Aktiv(this,0);"    >
   <input type="checkbox" >
   <span class="slider round" style="background-color: rgb(33, 150, 243);"></span>
 </label><br><span id="STatusTxT" style="color:green;">Activ</span></div>
@@ -60,7 +73,7 @@
 <button type="button" id="BLNC_btn" onclick="OPEN_BALANCE();" style="text-align:center;z-index:2;position: absolute;top: 40.3%;/*! right: 50%; */width: 100px;/*! margin: 20px; */left: 50%;margin-left: -50px;padding: 0px;background: goldenrod;font-size: 16px;"><span style="font-size: 14px;opacity: 0.6;">BALANCE</span>
 <br><span id="BLNC_TXT" style="">35,7</span><span> $</span></button>
 
-<div class="vertical-menu"> <a style="border-radius: 55px 0px 0px 0px;text-align:center; background-color:darkgray;color:white;cursor: auto;"></a><a style="display:none;"></a>
+<div class="vertical-menu"> <a style="border-radius: 55px 0px 0px 0px;text-align:center; background-color:darkgray;color:white;cursor: auto;"></a>
 <!-- se polne menito ---></div>
 
 
@@ -126,8 +139,8 @@
   <option value="1">Germany</option>
   <option value="2">USA</option>
   <option value="3">RUSSIA</option></select>
-  
-   <select id="RegionS" style="display:none; max-width: 120px;">
+  <i id="Katanec" class='fas fa-lock'></i>
+   <select id="RegionS" style="display:none; max-width: 120px;" onchange="OKbtn(this.value);">
    <option value="0">Search Regions :....</option><option value="1"></option><option value="2"></option>
    <option value="3"></option><option value="4"></option><option value="5"></option>
    <option value="6"></option><option value="7"></option><option value="8"></option>
@@ -198,7 +211,7 @@ Peyment
 
 
   <div style="display: list-item;">
-    <button type="button" id="OKbtn" onclick="JOB_update();" style="float:left;width: auto;margin: 10px;" >Save</button>
+    <button type="button" id="OKbtn" onclick="ADD_NEW_JOB();"  style="float:left;width: auto;margin: 10px;" >Save</button>
     <button type="button" id="X_btn" onclick="modal_JOB.style.display='none';" style="float:right;width: auto;margin: 10px;" >Cancel</button>
   </div>
     
@@ -209,60 +222,60 @@ Peyment
   <div class="w3-row ">
     <div class="w3-quarter">
 	<div class="FOTOstalaza" value="0">
-	<button class="UPLOUDbtn" onclick="VIEW_foto_MODEL(this.parentElement.attributes.value.value,j_oglas);"><i class="fas fa-edit" aria-hidden="true"></i></button>	
+	<button class="UPLOUDbtn"><i class="fas fa-edit" aria-hidden="true"></i></button>	
      <img class="SHOWimg"><i class='far fa-image blankIMG'></i>
 	 </div> 
 	  <div class="FOTOstalaza" value="1">
-	<button class="UPLOUDbtn" onclick="VIEW_foto_MODEL(this.parentElement.attributes.value.value,j_oglas);"><i class="fas fa-edit" aria-hidden="true"></i></button>	
+	<button class="UPLOUDbtn"><i class="fas fa-edit" aria-hidden="true"></i></button>	
 	  <img class="SHOWimg"><i class='far fa-image blankIMG'></i>
 	 </div> 
 	  <div class="FOTOstalaza" value="2">
-	  <button class="UPLOUDbtn" onclick="VIEW_foto_MODEL(this.parentElement.attributes.value.value,j_oglas);"><i class="fas fa-edit" aria-hidden="true"></i></button>
+	  <button class="UPLOUDbtn"><i class="fas fa-edit" aria-hidden="true"></i></button>
 	  <img class="SHOWimg"><i class='far fa-image blankIMG'></i>
    	 </div>
    </div> 
    
    <div class="w3-quarter">
    <div class="FOTOstalaza" value="3">
-	<button class="UPLOUDbtn" onclick="VIEW_foto_MODEL(this.parentElement.attributes.value.value,j_oglas);"><i class="fas fa-edit" aria-hidden="true"></i></button>	
+	<button class="UPLOUDbtn"><i class="fas fa-edit" aria-hidden="true"></i></button>	
 	  <img class="SHOWimg"><i class='far fa-image blankIMG'></i>
 	  </div>
 	  <div class="FOTOstalaza" value="4">
-	<button class="UPLOUDbtn" onclick="VIEW_foto_MODEL(this.parentElement.attributes.value.value,j_oglas);"><i class="fas fa-edit" aria-hidden="true"></i></button>	
+	<button class="UPLOUDbtn"><i class="fas fa-edit" aria-hidden="true"></i></button>	
 	  <img class="SHOWimg"><i class='far fa-image blankIMG'></i>
 	  </div>
 	  <div class="FOTOstalaza" value="5">
-	<button class="UPLOUDbtn" onclick="VIEW_foto_MODEL(this.parentElement.attributes.value.value,j_oglas);"><i class="fas fa-edit" aria-hidden="true"></i></button>	
+	<button class="UPLOUDbtn"><i class="fas fa-edit" aria-hidden="true"></i></button>	
 	  <img class="SHOWimg"><i class='far fa-image blankIMG'></i>
 	  </div>
 	</div>  
 	
     <div class="w3-quarter">
     <div class="FOTOstalaza" value="6">
-	<button class="UPLOUDbtn" onclick="VIEW_foto_MODEL(this.parentElement.attributes.value.value,j_oglas);"><i class="fas fa-edit" aria-hidden="true"></i></button>	
+	<button class="UPLOUDbtn"><i class="fas fa-edit" aria-hidden="true"></i></button>	
 	  <img  class="SHOWimg"><i class='far fa-image blankIMG'></i>
 	  </div>
 	  <div class="FOTOstalaza" value="7">
-	<button class="UPLOUDbtn" onclick="VIEW_foto_MODEL(this.parentElement.attributes.value.value,j_oglas);"><i class="fas fa-edit" aria-hidden="true"></i></button>	
+	<button class="UPLOUDbtn"><i class="fas fa-edit" aria-hidden="true"></i></button>	
 	  <img  class="SHOWimg"><i class='far fa-image blankIMG'></i>
 	  </div> 
 	  <div class="FOTOstalaza" value="8">
-	<button class="UPLOUDbtn" onclick="VIEW_foto_MODEL(this.parentElement.attributes.value.value,j_oglas);"><i class="fas fa-edit" aria-hidden="true"></i></button>	
+	<button class="UPLOUDbtn"><i class="fas fa-edit" aria-hidden="true"></i></button>	
 	  <img class="SHOWimg"><i class='far fa-image blankIMG'></i>
 	  </div>
 	</div>
 	
     <div class="w3-quarter">
     <div class="FOTOstalaza" value="9">
-	<button class="UPLOUDbtn" onclick="VIEW_foto_MODEL(this.parentElement.attributes.value.value,j_oglas);"><i class="fas fa-edit" aria-hidden="true"></i></button>	
+	<button class="UPLOUDbtn"><i class="fas fa-edit" aria-hidden="true"></i></button>	
 	  <img  class="SHOWimg"><i class='far fa-image blankIMG'></i>     
 	  </div>
 	  <div class="FOTOstalaza" value="10">
-	<button class="UPLOUDbtn" onclick="VIEW_foto_MODEL(this.parentElement.attributes.value.value,j_oglas);"><i class="fas fa-edit" aria-hidden="true"></i></button>	
+	<button class="UPLOUDbtn"><i class="fas fa-edit" aria-hidden="true"></i></button>	
 	  <img class="SHOWimg"><i class='far fa-image blankIMG'></i>
  	  </div>
 	  <div class="FOTOstalaza" value="11">
-     <button class="UPLOUDbtn" onclick="VIEW_foto_MODEL(this.parentElement.attributes.value.value,j_oglas);"><i class="fas fa-edit" aria-hidden="true"></i></button>	
+     <button class="UPLOUDbtn"><i class="fas fa-edit" aria-hidden="true"></i></button>	
 	  <img class="SHOWimg"><i class='far fa-image blankIMG'></i>
 	  </div>
 	</div>
@@ -290,7 +303,7 @@ Peyment
 <input type="text" id="PROFIL_status" style="width: 90%;margin: auto;display: table-caption;" ><br><br>
 
 <p> update PROFIL pic <input type="file" value="upload" id="fileButonP_FOTO" style="width: auto;float: right;position: inherit;"></p>
-<img id="wew" src="../img/deflat.png" style="width: auto;margin: auto;display:table-caption;" >
+<img src="../img/deflat.png" class="ProfilFOTOpreview" >  
 <p> email account  verification status   : <span id="E_status"></span></p>
 
 <p>Contact me :<label style="display: initial;text-align: center;float: right;">
@@ -300,7 +313,7 @@ Peyment
 <input type="text" id="PROFIL_contact" style="width: 90%;margin: auto;display: table-caption;" placeholder="tel/email/web/addres (tel:0049 876..) or myall link" ><br><br>
 
 	
-<button type="button"  onclick="UPD_PROFILO(this);" style="width: auto;margin: auto;position: inherit;display: table-caption;" >update</button>
+<button type="button"  onclick="UPD_PROFILO();" style="width: auto;margin: auto;position: inherit;display: table-caption;" >update</button>
 
 <p style="float:right;">what is myall <span title="https://1kinger.github.io/web#s4" onclick="window.open('https://1kinger.github.io/web#s4');">account<i style="color: cadetblue;font-size: large;" class="fas fa-question-circle" aria-hidden="true"></i></span></p>
   </div>
@@ -309,11 +322,10 @@ Peyment
 
 
 <!-- model balance --->
-<div id="Modal_BALANCE" class="modal">
+<div id="Modal_BALANCE" class="modal" style="z-index:3;">
  <div class="modal-content" style="background-color: #fefefe;padding: 3%;border: 1px solid #888;padding-bottom: 25px;">
     <span class="close"  onclick="this.parentElement.parentElement.style='display:none;'">&times;</span>
 	
-
 
 	
 <table id="T_BALAMCE">
@@ -340,91 +352,29 @@ Peyment
 <td class="B_SS"></td><td class="B_IN"></td><td class="B_MMFU"></td><td class="B_ES"></td>
 </tr></table>
 
-
-
+  </div>
  </div>
-</div>
 
-
-
-
-
-
-
-
-
-<!-- -->
-<div id="Modal_FOTOset" class="modal">
-
-  <!-- Modal content -->
+ <div id="Modal_FOTOset" class="modal"><!-- Modal content -->
   <div class="modal-content" style="margin-bottom: 200px;">
     <span class="close" onclick="this.parentElement.parentElement.style='display:none;'">&times;</span>
 	
-	
-	
-<button type="button"  onclick="FotoSETbtn(false);" style="width: auto;margin:-15px;position: inherit;display: grid;float: left;background:red;" >delete</button>
-<br><br><input type="file" value="upload" id="fileButonJ_FOTO" style="width: auto;float: right;position: inherit;">
-<img class="View_FOTO"><i id="noFOTO" class='far fa-image blankIMG'></i>
+    <button type="button"  onclick="FotoSETbtn(false);" style="width: auto;margin:-15px;position: inherit;display: grid;float: left;background:red;" >delete</button>
+    <br><br><input type="file" value="upload" id="fileButonJ_FOTO" style="width: auto;float: right;position: inherit;">
+    <img class="View_FOTO"><i id="noFOTO" class='far fa-image blankIMG'></i>
     
-<button type="button"  onclick="FotoSETbtn(this);" style="width: auto;margin: auto;position: inherit;display: grid;float: left;" >update</button>
-<button type="button"  onclick="FOTO_model.style='display:none;';;" style="width: auto;margin: auto;position: inherit;display: grid;float: right;background:#c4572c;" >cancel</button>
+    <button type="button"  onclick="FotoSETbtn(this);" style="width: auto;margin: auto;position: inherit;display: grid;float: left;" >update</button>
+    <button type="button"  onclick="FOTO_model.style='display:none;';;" style="width: auto;margin: auto;position: inherit;display: grid;float: right;background:#c4572c;" >cancel</button>
 
   </div>
-
+ </div>
+ 
 </div>
-
-
-
-
-  </div>
-
-	
-	
-</div>	
-<!--   -->	
-
-	
-  <div id="login_div" class="main-div">
-    <h3 id="TiTle" style="text-align:center;position: relative;" >Welcome to Sezon Jobs<br>Profil meanagment </h3>
-
-<img src="USER_files/MEDIA/SJ1000.png" style="display: block;border-radius:45px;margin-left: auto;margin-right: auto;width: 73%;margin-top:-50px;max-width: 600px;" >
-<p id="ErorTXT" style="color:red;margin: 0px;text-align: center;"></p>
-
-<div id="Lin" >	
-	
-    <input type="email" placeholder="Email..." id="email_field_1" />
-    <input type="password" placeholder="Password..." id="password_field_1" />
-<div>
-    <button type="button"  onclick="login();">Login to Account</button> <hr>
-    <button type="button"  onclick="SUP(true)">Sing Up</button> 
-	
-<button type="button"  style="position: absolute;z-index: -1;bottom: 0px;left:0px;margin: 10px;width: auto;background-color: cadetblue;color: white;" onclick="window.open('https://1kinger.github.io/web/#s4');">what is myall ?</button> <br>
-
-</div>
-
-</div>
-
-	
-<div id="Sup" style="display:none;">
-<p id="TitLINK" class="TITlink">https://sezonjobs.sytes.net/1kinger</p>
-	<input type="text" placeholder="1kinger" id="username_field" oninput="Imenik(this);" />
-  	<input type="email" placeholder="Email..." id="email_field_2" oninput="CKMail(this);"  />
-    <input type="password" placeholder="Password..." id="password_field_2" oninput="CEp(this);" />
-<div>	
-	    <button type="button"  onclick="SingUP();">Sing Up</button> <hr>
-		<button type="button"  onclick="SUP(false);">back</button> 
-</div>
-</div>
-
-		
-  </div>
-
-
 
 
 <div style="display:none;"  id="BingoLinija"><!-- ova e samo za da se copira i pastira i deletne -->
 
-<a><div class="REZLUTAT" onclick=""><span class="REZ"></span>
+<a><div class="REZLUTAT"><span class="REZ"></span>
 <span class="REZhdn"></span><span class="REZhdn"></span><span class="REZhdn"></span><span class="REZhdn"></span><span class="REZhdn"></span><span class="REZhdn"></span>
 </div><label class="switch SWITCHtabela"><input type="checkbox" onchange="T_J_switch(this);"><span class="slider round"></span></label>
 <button class="EDITbtn" onclick="MDL_JOB(this);">Edit</button></a>
@@ -432,32 +382,32 @@ Peyment
 </div>
 
 <!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
 
 <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
-<script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-analytics.js"></script>
-
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-analytics.js"></script>
 
 <!-- Add additional services that you want to use -->
-<script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-storage.js"></script>
+<!-- >>> --><script src="USER_files/WEB/JS/firebase/firebase_SJ.js" type="text/javascript"></script>
 
-<script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-database.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-storage.js"></script>
+<script src="USER_files/WEB/JS/firebase/FOTO_SETER.js" type="text/javascript"></script><!--kod za setuvane foto-->
 
-<script src="USER_files/WEB/JS/index.js" type="text/javascript"></script>
- 
- 
+<script src="USER_files/WEB/JS/index.js" type="text/javascript"></script>  
  
 <script type="text/javascript" src="../SezonJobs_files/DATA/CEK_CAT/cek_cat.js" ></script>
 <script type="text/javascript" src="../SezonJobs_files/DATA/CEK_CAT/dropdowntree.js" ></script>
-
 
 
 <script type="text/javascript" src="../SezonJobs_files/DATA/LOKACI/lokaci.js"></script>
 
 <script type="text/javascript">$(document).ready(function(){
 $("#example").DropDownTree(options);
+
+
 
 });</script>
  

@@ -1,48 +1,37 @@
+
   // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   var firebaseConfig = {
-    apiKey: "AIzaSyBNjmQnhNhtKS3Fl-S01bPLapvqtjFN7kE",
-    authDomain: "myall-proekt.firebaseapp.com",
-    databaseURL: "https://myall-proekt.firebaseio.com",
-    projectId: "myall-proekt",
-    storageBucket: "myall-proekt.appspot.com",
-    messagingSenderId: "53126128195",
-    appId: "1:53126128195:web:c5605a60494f511b8b6af6",
-    measurementId: "G-2YRGN7EEZN"
+    apiKey: "AIzaSyBKXDFF6LYOmjW_gymnhaeJCrfyc35lgfQ",
+    authDomain: "sezon-j.firebaseapp.com",
+    databaseURL: "https://sezon-j.firebaseio.com",
+    projectId: "sezon-j",
+    storageBucket: "sezon-j.appspot.com",
+    messagingSenderId: "322723109813",
+    appId: "1:322723109813:web:79c6333c7de8ce450297fc",
+    measurementId: "G-4VDTXDVRFG"
   };
   // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  
-//definicija  
-var DODATOK=window.location.href.slice(28);var MyallBase = firebase.database().ref();
+  firebase.initializeApp(firebaseConfig); var SJ_BASE = firebase.database().ref(); //MyallBase >>>  SJ_BASE
+//  firebase.analytics();
+
+var DODATOK=window.location.href.slice(28);
+var Ltxt=document.getElementById("Loading");
 
 var JOB_ID=null;
-var USER=DODATOK;
+var USER="nunu0";
+
 if (DODATOK.includes("#")){
 	  USER=DODATOK.slice(0,DODATOK.length-7);
-	JOB_ID=DODATOK.slice(DODATOK.length-6);}
+	JOB_ID=DODATOK.slice(DODATOK.length-6);
+CekJOB(USER,JOB_ID);}else{
 
-///ovie se dodadeni kakotestiracki elementi !!!
-//USER="bbbbb";            /// bbbbb
-//JOB_ID="pjslj9";//"oil0zf";           paw58y     bbbbb#    pjslj9
-
-
-function CEKuser(){USERlinkceto="REG@/"+USER;
-
-MyallBase.child(USERlinkceto);
-MyallBase.once("value")
-  .then(function(snapshot) {
-     CC = snapshot.val();
-	 
-	if(CC!=undefined){    
-		console.log("ovaj postoi  user ",USER);DD=true;}else{
-		console.log("ovaj user  go nema",USER);DD=false;}
- 
- 
- if(DD){
-if((CC["URLuser"][USER]["PROFIL"]["SETINGS"]["PROFIL_STATUS"]!=true)&&(CC["URLuser"][USER]["PROFIL"]["SETINGS"]["PROFIL_STATUS"]!=false)){
-document.getElementById("INFOstat").innerHTML="<a>this USERNAME <a/><span>"+USER+"</span><a>is alredy suspended</a><br>";}
-else{ DAJval("PROFIL","RANK",0);
+USER="nunu0";           
+//JOB_ID="3p7eqx";//n01234567#vkya72   bb12998#wc4cst 
+	
+	CekUSER(USER);
+//	  CekJOB(USER,JOB_ID);
+	}
 
 if(JOB_ID){
 document.getElementById("K_4").style="display:none;";
@@ -51,112 +40,105 @@ document.getElementById("K_4").style="display:block;";
 document.getElementById("K_4_J").style="display:none;";}
 
 
-
-
-
-
-}}else{
-
-document.getElementById("Loading").innerHTML="<a>this USERNAME <a/><span>"+USER+"</span><a> still dont exist </a><br><br><a target='_self'    style='font-size: 35px;' href='https://myall.sytes.net/'>Create that acc</a>";}
- 	
-  });}
-
-function puniLokalno(G){
+function CekJOB(U,J){
+chekU="J_DB/JOBS/"+U;
+SJ_BASE.child(chekU).once("value")
+  .then(function(snapshot) {
+     CHEK = snapshot.val();
 	
-if(JOB_ID){Puni_JOB(G,JOB_ID);}
+	if(CHEK!=undefined){J_status=chekU+"/"+J; CEKjob(J_status);}else{
+Ltxt.innerHTML="<a>this USERNAME <a/><span>"+USER+"</span><a> still dont exist </a><br><br><a target='_self'    style='font-size: 35px;' href='https://sezonjobs.sytes.net/'>Create that acc</a>";
+  }});}
+  
+function CEKjob(a){
+              J=a+"/J_STATUS";	
+SJ_BASE.child(J).once("value")
+  .then(function(snapshot) {J_ok = snapshot.val();
+if(J_ok!=undefined){if(J_ok){LOAD_J(a);}else{
+      Ltxt.innerHTML="<a>this job is momental deactiv <br>by<a/><span>"+USER+"</span><br><a>see what other jobs have</a><br><br><a target='_self'    style='font-size: 35px;' href='https://sezonjobs.sytes.net/"+USER+"'>"+USER+"</a>";}
+}else{Ltxt.innerHTML="<a>this job dont exsist or alredy deleted.. <a/><span>"+USER+"</span><a> still dont exist </a><br><br><a target='_self'    style='font-size: 35px;' href='https://sezonjobs.sytes.net/"+USER+"'>"+USER+"</a>";}
+
+  });}
+function LOAD_J(a){SJ_BASE.child(a).once("value").then(function(snapshot){J=snapshot.val();Puni_JOB(J);});}
+var P;
+function CekUSER(a){
+chekU="J_DB/USER_BEKAP/"+a;
+SJ_BASE.child(chekU).once("value").then(function(snapshot){
+CHEK = snapshot.val();if(CHEK!=undefined){P=CHEK["PROFIL"]["SETINGS"]["PROFIL_STATUS"];if(P){Puni_PROFIL(CHEK);}
+ else if(!P){Ltxt.innerHTML="<a>this profil<a/><br><span>"+USER+"</span><a> exsist <br> and wann stay privat </a>";}
+ else if((P!=true)&&(P!=false)){Ltxt.innerHTML="<a>this USER <a/><span>"+USER+"</span><a>is alredy suspended</a><br><a>and reason was :"+P+"</a>";}}
+else{Ltxt.innerHTML="<a>this USERNAME <a/><span>"+USER+"</span><a> still dont exist </a><br><br><a target='_self'    style='font-size: 35px;' href='https://sezonjobs.sytes.net/'>Create that acc</a>";}});}
 
 
-if(GETaccSTATUS(G["PROFIL"]["SETINGS"]["PROFIL_STATUS"])){
+function Puni_PROFIL(a){
+	A=a["PROFIL"];
+Ltxt.remove();
+
 document.getElementsByTagName("body")[0].style="background-image: url('J4K_files/MEDIA/bcground.jpg')";
+document.getElementById("INFOstat").innerHTML=A["SETINGS"]["PROFIL_SEY"];
 
-document.getElementById("INFOstat").innerHTML=G["PROFIL"]["SETINGS"]["PROFIL_SEY"];
-fotoLINK=G["PROFIL"]["FOTO"]["Flink"];
-
+fotoLINK=A["FOTO"]["Flink"];
 if(fotoLINK==false){
 document.getElementById("PROFI_pic").src="J4K_files/MEDIA/SJ_PRO_pic.png";
 }else{document.getElementById("PROFI_pic").src=fotoLINK;}
 
-if(G["PROFIL"]["CONTACT"]["MYALL"]&&(G["PROFIL"]["CONTACT"]["C_text"]!="")){
-P_myall=G["PROFIL"]["CONTACT"]["C_text"];
+if(A["CONTACT"]["MYALL"]&&(A["CONTACT"]["C_text"]!="")){
+P_myall=A["CONTACT"]["C_text"];
 document.getElementById("MYALLbtnPRO").style.display="block";
 document.getElementById("MYALLbtnPRO").onclick=function(){window.open(P_myall)};
 	  document.getElementById("Contact_PRO").remove();
 }else{document.getElementById("MYALLbtnPRO").remove();
-document.getElementById("Contact_PRO").innerHTML=G["PROFIL"]["CONTACT"]["C_text"];
+document.getElementById("Contact_PRO").innerHTML=A["CONTACT"]["C_text"];
 document.getElementById("Contact_PRO").style.display="block";}
 
-
-
-PUNItablata(G);
-
-	}else{
-document.getElementById("INFOstat").innerHTML="<a>this profil  <a/><span>"+USER+"</span><a> exsist <br> and wann stay privat </a>";
-		
-		
-	}
+b=A["USER"];
+LoadJOBLIST(b);
 
 }
 
-function GETaccSTATUS(a){if(a){return a;}}
+function LoadJOBLIST(a){
+URL="J_DB/JOBS/"+a;
+SJ_BASE.child(URL).once("value").then(function(snapshot){
+	        OGLAS=snapshot.val();
+PUNItablata(OGLAS);});}
 
-function DAJval(a,b,ELEM){LINKtxt="URLuser/"+USER+"/"+a+"/"+b;  
-MyallBase.child(LINKtxt);
-MyallBase.once("value")
-  .then(function(snapshot) {
-     toBACK = snapshot.val();
-	 
-	 GTD=toBACK["URLuser"][USER];
-	 puniLokalno(GTD);
+	  
 
-document.getElementById("Loading").remove();	 
-  });	
-  
-}
-Start();
-
-
-
-function Start(){
-	CEKuser();
-
-}
-
-
-function Puni_JOB(a,j){A=a["JOB_LISTA"][j];var T;
-document.getElementById("title").innerHTML=A["J_TITLE"];
+function Puni_JOB(a){var T;// sloboden privatna variablinka
+document.getElementById("title").innerHTML=a["J_TITLE"];
 
 M=["month ?","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
-document.getElementById("time_START").innerHTML=M[A["J_TIME"][0][0]]+" 202"+A["J_TIME"][0][1];
-document.getElementById("time_END").innerHTML  =M[A["J_TIME"][1][0]]+" 202"+A["J_TIME"][1][1];
+document.getElementById("time_START").innerHTML=M[a["J_TIME"][0][0]]+" 202"+a["J_TIME"][0][1];
+document.getElementById("time_END").innerHTML  =M[a["J_TIME"][1][0]]+" 202"+a["J_TIME"][1][1];
 
-document.getElementById("desc").innerHTML=A["J_DES"];
-document.getElementById("adress").innerHTML=A["J_ADDRESE"];
+document.getElementById("desc").innerHTML=a["J_DES"];
+document.getElementById("adress").innerHTML=a["J_ADDRESE"];
 
 
 
-if(A["J_PEY"][1]==0){T=" ??"}else
-if(A["J_PEY"][1]==1){T=" pro Dey"}else
-if(A["J_PEY"][1]==2){T=" pro Hour"}else
-if(A["J_PEY"][1]==3){T=" pro 1 KG norma"}else
-if(A["J_PEY"][1]==4){T=" pro Jobs Done"}
-document.getElementById("pey").innerHTML="&euro; "+A["J_PEY"][0]+T;
+if(a["J_PEY"][1]==0){T=" ??"}else
+if(a["J_PEY"][1]==1){T=" pro Dey"}else
+if(a["J_PEY"][1]==2){T=" pro Hour"}else
+if(a["J_PEY"][1]==3){T=" pro 1 KG norma"}else
+if(a["J_PEY"][1]==4){T=" pro Jobs Done"}
+document.getElementById("pey").innerHTML="&euro; "+a["J_PEY"][0]+T;
 
-if(A["J_JOBREF"].length>3){T="Job Reference:<br>"+A["J_JOBREF"];}else{T="";}
+if(a["J_JOBREF"].length>3){T="Job Reference:<br>"+a["J_JOBREF"];}else{T="";}
 document.getElementById("ref").innerHTML=T;
 
-document.getElementById("cat").innerHTML=A["J_CAT"];
+document.getElementById("cat").innerHTML=a["J_CAT"];
 
-if(A["J_CONTACT"][1][0]){document.getElementById("contact").remove();
-MYurl="https://myall.sytes.net/"+A["J_CONTACT"][0];
+if(a["J_CONTACT"][1][0]){document.getElementById("contact").remove();
+MYurl="https://myall.sytes.net/"+a["J_CONTACT"][0];
 document.getElementById("MYALbtnC").onclick=function(){window.open(MYurl)}
 document.getElementById("MYALbtnC").style.display="inherit";}
 
 else{document.getElementById("MYALbtnC").remove();
-document.getElementById("contact").innerHTML=A["J_CONTACT"][0];}
+document.getElementById("contact").innerHTML=a["J_CONTACT"][0];}
 
 FOTKIsrc=[];
-for(i in A["J_FOTO"]){if(A["J_FOTO"][i]["Flink"]!=""){FOTKIsrc.push(A["J_FOTO"][i]["Flink"]);}}
+for(i in a["J_FOTO"]){if(a["J_FOTO"][i]["Flink"]!=""){FOTKIsrc.push(a["J_FOTO"][i]["Flink"]);}}
 
 PUNI_fotkite(FOTKIsrc);}
 
@@ -190,33 +172,19 @@ function showSlides(n) {
   slides[slideIndex-1].style.display = "block";}
 
 
-function PUNItablata(a){ 
+function PUNItablata(a){  
+	N=0;							REZkutati =document.getElementsByClassName("REZLUTAT");
+	for(i in a){SIFRA=i; cl();      REZkutati[N].children[0].setAttribute("j_id",SIFRA); 
 	
-	N=0;
-OGLASmeni=a["JOB_LISTA"];
-JOB_Link=a["JOB_LINKS"]["J_Links"];
-J_N=[null];
- ///// ova da bidat tie dns kodove
-/// toa N to ebava bidejki ne se izaramneti J liks i J job list ... moze da se poprae ama nesmeta search
-// zastita za gaden kod !!!
-	for(i in OGLASmeni){  if(N){	J_N[N]=i;  IMETO=J_N[N];
-    
-	if(OGLASmeni[IMETO]["J_STATUS"]){    cl();	
-	
-	
-	document.getElementsByClassName("REZLUTAT")[N-1].children[0].setAttribute("j_id",IMETO); 
-	
-	document.getElementsByClassName("REZLUTAT")[N-1].children[0].innerHTML=OGLASmeni[IMETO]["J_TITLE"];
-	document.getElementsByClassName("REZLUTAT")[N-1].children[1].innerHTML=OGLASmeni[IMETO]["J_ADDRESE"];
-	document.getElementsByClassName("REZLUTAT")[N-1].children[2].innerHTML=OGLASmeni[IMETO]["J_DES"];
-	document.getElementsByClassName("REZLUTAT")[N-1].children[3].innerHTML=OGLASmeni[IMETO]["J_PEY"];
-	document.getElementsByClassName("REZLUTAT")[N-1].children[4].innerHTML=OGLASmeni[IMETO]["J_JOBREF"];
-	document.getElementsByClassName("REZLUTAT")[N-1].children[5].innerHTML=OGLASmeni[IMETO]["J_CAT"];
-	document.getElementsByClassName("REZLUTAT")[N-1].children[6].innerHTML=OGLASmeni[IMETO]["J_CONTACT"];
+	REZkutati[N].children[0].innerHTML=a[SIFRA]["J_TITLE"];
+	REZkutati[N].children[1].innerHTML=a[SIFRA]["J_ADDRESE"];
+	REZkutati[N].children[2].innerHTML=a[SIFRA]["J_DES"];
+	REZkutati[N].children[3].innerHTML=a[SIFRA]["J_PEY"];
+	REZkutati[N].children[4].innerHTML=a[SIFRA]["J_JOBREF"];
+	REZkutati[N].children[5].innerHTML=a[SIFRA]["J_CAT"];
+	REZkutati[N].children[6].innerHTML=a[SIFRA]["J_CONTACT"];
 
-	}}
-	
-	N=N+1;}
+REZkutati[N].nextElementSibling.children[0].checked=a[SIFRA]["J_STATUS"]; N=N+1;}
 	
 	TablaTXT();}
 
@@ -225,13 +193,16 @@ var cln = itm.cloneNode(true);
 document.getElementsByClassName("vertical-menu")[0].appendChild(cln);}
 
 function TablaTXT(){N=document.getElementsByClassName("vertical-menu")[0].childElementCount;
-txt="No job in joblista..";if(N>2){txt="Smart search with ctrl+F";}
-document.getElementsByClassName("vertical-menu")[0].children[0].innerHTML=txt;}
-
+txt="No job in joblista..";if(N>1){txt="Smart search with ctrl+F";}
+document.getElementsByClassName("vertical-menu")[0].children[0].innerHTML=txt;}	
 
 function OPEN_LINK(a){txt="https://sezonjobs.sytes.net/"; J=a.getAttribute("j_id") ; T=txt+USER+"#"+J; 
 	window.open(T);}
 	
 function GoGOOGle(a){t="https://www.google.com/maps/place/";L=a.previousElementSibling.innerText;
 T=t+L;window.open(T);}
+	
+/////////////////////////////////////////////////////////
+
+
 	
