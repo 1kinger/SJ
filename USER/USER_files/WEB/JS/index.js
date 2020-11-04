@@ -548,14 +548,20 @@ function T_J_switch(a){V=a.checked; var a_d;
 sifra=a.parentElement.parentElement.children[0].children[0].getAttribute("j_id");
 SEGASNOTO=GTD["JOB_LISTA"][sifra]; SEGASNOTO["J_STATUS"]=V; s_dns=USER+"/"+sifra;
 
-var Contra_AD;if(V){a_d="A";Contra_AD="D";}else{a_d="D";Contra_AD="A";}
+var Contra_AD; 
+
+                                var JDtxt="J_DB/JOBS/"+s_dns;
+if(V){SJ_BASE.child(JDtxt).set(SEGASNOTO);}else{SJ_BASE.child(JDtxt).set(null);}
+
+                                                 
+if(V){a_d="A";Contra_AD="D";}else{a_d="D";Contra_AD="A";}
 
 Dr="Dr"+GTD["JOB_LISTA"][sifra]["J_LOKATION"][0];
 Re="Re"+GTD["JOB_LISTA"][sifra]["J_LOKATION"][1];
 
 
-ADD_KODinJD="J_DB/JOBS/"+s_dns;
-SJ_BASE.child(ADD_KODinJD).set(SEGASNOTO);
+
+
 
 ////////////////////////////////////////   da se sredi J_DB    ////  !!!
 ADD_KOD="J_SEARCH/"+Dr+"/"+Re+"/"+a_d+"/"+s_dns;
