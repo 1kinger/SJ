@@ -23,7 +23,7 @@ var JOB_ID,USER;
 if (DODATOK.includes("#")){
 	  USER=DODATOK.slice(0,DODATOK.length-7);
 	JOB_ID=DODATOK.slice(DODATOK.length-6);
-CekJOB(USER,JOB_ID);}else{CekUSER(USER);}
+CekJOB(USER,JOB_ID);}else{CekUSER(DODATOK);}
 
 if(JOB_ID){
 document.getElementById("K_4").style="display:none;";
@@ -84,10 +84,8 @@ document.getElementById("Contact_PRO").innerHTML=A["CONTACT"]["C_text"];
 document.getElementById("Contact_PRO").style.display="block";}
 
 b=A["USER"];
-LoadJOBLIST(b);
-
-}
-
+LoadJOBLIST(b);}
+		 
 function LoadJOBLIST(a){
 URL="J_DB/JOBS/"+a;
 SJ_BASE.child(URL).once("value").then(function(snapshot){

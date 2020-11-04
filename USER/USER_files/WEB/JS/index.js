@@ -92,14 +92,16 @@ a=document.getElementById("PROFIL_status").value.slice(0,200);
 document.getElementById("PRO_STATUS").innerHTML=a;
 
 if(b!=a){
-SJ_BASE.child("U_I_D/"+X_uID+"/PROFIL/SETINGS/PROFIL_SEY").set(a);}}
+SJ_BASE.child("U_I_D/"+X_uID+"/PROFIL/SETINGS/PROFIL_SEY").set(a);
+SJ_BASE.child("J_DB/JOBS/"+USER+"/PROFIL/SETINGS/PROFIL_SEY").set(a);}}
 
 function promeniTUKA(){
 	if(FTO_url!=false){
 stara_FTOname=GTD["PROFIL"]["FOTO"]["Fime"];
 if(stara_FTOname!=NOVO_FOTO_iME){
 document.getElementById("PROFI_pic").src=FTO_url;
-SJ_BASE.child("U_I_D/"+X_uID+"/PROFIL/FOTO/Flink").set(FTO_url);}
+SJ_BASE.child("U_I_D/"+X_uID+"/PROFIL/FOTO/Flink").set(FTO_url);
+SJ_BASE.child("J_DB/JOBS/"+USER+"/PROFIL/FOTO/Flink").set(FTO_url);}
 
 }}
 
@@ -130,9 +132,11 @@ M_btn.style.display="none";
 
 V=M_box;
 SJ_BASE.child("U_I_D/"+X_uID+"/PROFIL/CONTACT/MYALL").set(V);
+SJ_BASE.child("J_DB/JOBS/"+USER+"/PROFIL/CONTACT/MYALL").set(V);
 
 if(c_text!=C_contact_INput){a=C_contact_INput;
-SJ_BASE.child("U_I_D/"+X_uID+"/PROFIL/CONTACT/C_text").set(a);}
+SJ_BASE.child("U_I_D/"+X_uID+"/PROFIL/CONTACT/C_text").set(a);
+SJ_BASE.child("J_DB/JOBS/"+USER+"/PROFIL/CONTACT/C_text").set(a);}
 
 }
 
@@ -262,7 +266,7 @@ var updates = {}; updates[ NOV_N_br] = DnS;
 
 SJ_BASE.child(Job_parh).update(updates);}
 else{var Z=-1;
-  for(i in TaaDATA){Z=Z+1; if(TaaDATA[i]==JOBdns){ SJ_BASE.child(Job_parh+"/"+Z).set(null);}
+  for(i in TaaDATA){Z=Z+1; if(TaaDATA[i]==JOBdns){ SJ_BASE.child(Job_parh+"/"+Z).set(null);}  ///"""!!!!
 	                break;} 
 			   
 		}
@@ -274,7 +278,10 @@ else{var Z=-1;
 
 function STATS(A){a=A.checked;                 ///// GLAVEN SWICH PROFIL DA LOCKNUVA sednuva akcija
 if(GTD["PROFIL"]["SETINGS"]["PROFIL_STATUS"]!=a){
-SJ_BASE.child("U_I_D/"+X_uID+"/PROFIL/SETINGS/PROFIL_STATUS").set(a);}}
+SJ_BASE.child("U_I_D/"+X_uID+"/PROFIL/SETINGS/PROFIL_STATUS").set(a);
+SJ_BASE.child("J_DB/JOBS/"+USER+"/PROFIL/SETINGS/PROFIL_STATUS").set(a);
+
+}}
 var SW=document.getElementsByClassName("switch")[0].children[0];
 function GETaccSTATUS(a){if(SW.checked!=a){SW.parentElement.click();}}
 
