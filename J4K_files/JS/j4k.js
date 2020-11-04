@@ -172,9 +172,7 @@ function PUNItablata(a){
 	REZkutati[N].children[3].innerHTML=a[SIFRA]["J_PEY"];
 	REZkutati[N].children[4].innerHTML=a[SIFRA]["J_JOBREF"];
 	REZkutati[N].children[5].innerHTML=a[SIFRA]["J_CAT"];
-	REZkutati[N].children[6].innerHTML=a[SIFRA]["J_CONTACT"];
-
-REZkutati[N].nextElementSibling.children[0].checked=a[SIFRA]["J_STATUS"]; N=N+1;}
+	REZkutati[N].children[6].innerHTML=a[SIFRA]["J_CONTACT"]; N=N+1;}
 	
 	TablaTXT();}
 
@@ -192,7 +190,4 @@ function OPEN_LINK(a){txt="https://sezonjobs.sytes.net/"; J=a.getAttribute("j_id
 function GoGOOGle(a){t="https://www.google.com/maps/place/";L=a.previousElementSibling.innerText;
 T=t+L;window.open(T);}
 	
-/////////////////////////////////////////////////////////
-
-
 	
