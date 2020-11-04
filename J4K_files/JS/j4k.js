@@ -23,7 +23,7 @@ var JOB_ID,USER;
 if (DODATOK.includes("#")){
 	  USER=DODATOK.slice(0,DODATOK.length-7);
 	JOB_ID=DODATOK.slice(DODATOK.length-6);
-CekJOB(USER,JOB_ID);}else{CekUSER(DODATOK);}
+CekJOB(USER,JOB_ID);}else{USER=DODATOK;CekUSER(USER);}
 
 if(JOB_ID){
 document.getElementById("K_4").style="display:none;";
@@ -77,7 +77,7 @@ document.getElementById("PROFI_pic").src="J4K_files/MEDIA/SJ_PRO_pic.png";
 if(A["CONTACT"]["MYALL"]&&(A["CONTACT"]["C_text"]!="")){
 P_myall=A["CONTACT"]["C_text"];
 document.getElementById("MYALLbtnPRO").style.display="block";
-document.getElementById("MYALLbtnPRO").onclick=function(){window.open(P_myall)};
+document.getElementById("MYALLbtnPRO").onclick=function(){window.open("https://myall.sytes.net/"+P_myall)};
 	  document.getElementById("Contact_PRO").remove();
 }else{document.getElementById("MYALLbtnPRO").remove();
 document.getElementById("Contact_PRO").innerHTML=A["CONTACT"]["C_text"];
