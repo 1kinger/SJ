@@ -93,7 +93,7 @@ document.getElementById("PRO_STATUS").innerHTML=a;
 
 if(b!=a){
 SJ_BASE.child("U_I_D/"+X_uID+"/PROFIL/SETINGS/PROFIL_SEY").set(a);
-SJ_BASE.child("J_DB/USER_BEKAP"+USER+"/PROFIL/SETINGS/PROFIL_SEY").set(a);}}
+SJ_BASE.child("J_DB/USER_BEKAP/"+USER+"/PROFIL/SETINGS/PROFIL_SEY").set(a);}}
 
 function promeniTUKA(){
 	if(FTO_url!=false){
@@ -101,7 +101,7 @@ stara_FTOname=GTD["PROFIL"]["FOTO"]["Fime"];
 if(stara_FTOname!=NOVO_FOTO_iME){
 document.getElementById("PROFI_pic").src=FTO_url;
 SJ_BASE.child("U_I_D/"+X_uID+"/PROFIL/FOTO/Flink").set(FTO_url);
-SJ_BASE.child("J_DB/USER_BEKAP"+USER+"/PROFIL/FOTO/Flink").set(FTO_url);}
+SJ_BASE.child("J_DB/USER_BEKAP/"+USER+"/PROFIL/FOTO/Flink").set(FTO_url);}
 
 }}
 
@@ -132,11 +132,11 @@ M_btn.style.display="none";
 
 V=M_box;
 SJ_BASE.child("U_I_D/"+X_uID+"/PROFIL/CONTACT/MYALL").set(V);
-SJ_BASE.child("J_DB/USER_BEKAP"+USER+"/PROFIL/CONTACT/MYALL").set(V);
+SJ_BASE.child("J_DB/USER_BEKAP/"+USER+"/PROFIL/CONTACT/MYALL").set(V);
 
 if(c_text!=C_contact_INput){a=C_contact_INput;
 SJ_BASE.child("U_I_D/"+X_uID+"/PROFIL/CONTACT/C_text").set(a);
-SJ_BASE.child("J_DB/USER_BEKAP"+USER+"/PROFIL/CONTACT/C_text").set(a);}
+SJ_BASE.child("J_DB/USER_BEKAP/"+USER+"/PROFIL/CONTACT/C_text").set(a);}
 
 }
 
@@ -279,7 +279,7 @@ else{var Z=-1;
 function STATS(A){a=A.checked;                 ///// GLAVEN SWICH PROFIL DA LOCKNUVA sednuva akcija
 if(GTD["PROFIL"]["SETINGS"]["PROFIL_STATUS"]!=a){
 SJ_BASE.child("U_I_D/"+X_uID+"/PROFIL/SETINGS/PROFIL_STATUS").set(a);
-SJ_BASE.child("J_DB/USER_BEKAP"+USER+"/PROFIL/SETINGS/PROFIL_STATUS").set(a);
+SJ_BASE.child("J_DB/USER_BEKAP/"+USER+"/PROFIL/SETINGS/PROFIL_STATUS").set(a);
 
 }}
 var SW=document.getElementsByClassName("switch")[0].children[0];
