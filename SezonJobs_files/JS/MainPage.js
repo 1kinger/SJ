@@ -4,6 +4,7 @@ var SiteRaboti;// gi fakja tie stringovite od A i gi stava u niza
 var DnS=[];//gi onade za zimanje na selektiranta rabota A/U/S
 var Tabla=document.getElementById("accordion3");
 
+  
 
 
 	var load = function () {/// load bodito neka stoe ovaka
@@ -121,12 +122,15 @@ function GetJobALL(a,b){
 URL="J_DB/JOBS/"+a+"/"+b;
 SJ_BASE.child(URL).once("value")
   .then(function(snapshot) {A = snapshot.val();if(A!=undefined){ PreDef(N); UPDEJT_JOB(A);N=N+1;}});}
+ 
+ 
   
   
-var N;
-function UPDEJT_JOB(a){BB=a["J_CAT"].toString().slice(0,-1).split(' ');//.join('_');
-
-for(i in BB){CAT.classList.add(BB[i]);}
+var N,BB;
+function UPDEJT_JOB(a){
+	
+	                   BB=a["J_CAT"].toString().split(' ');
+     CAT.classList.add(BB);
 	TITLE.innerHTML=a["J_TITLE"];
 
 	DESC.innerHTML=a["J_DES"];
@@ -138,7 +142,7 @@ var CAT,TITLE,DESC,ADRES,PEU,FotoN;
 
 function PreDef(a){
 	TITLE=document.getElementsByClassName("TITLE")[a];
-	CAT=TITLE.parentElement.parentElement.parentElement;
+CAT=TITLE.parentElement.parentElement.parentElement;
 	DESC=document.getElementsByClassName("DESC")[a];
 //	ADRES=document.getElementsByClassName("")[a];
 //	PEU=document.getElementsByClassName("")[a];

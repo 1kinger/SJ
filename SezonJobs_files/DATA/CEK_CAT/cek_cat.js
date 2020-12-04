@@ -167,7 +167,11 @@ ARROW= a.getElementsByClassName("arrow")[i]; GRANKA=ARROW.parentElement.nextElem
 
 for(item=0;item<GRANKA.childElementCount;item++){ N_max=N_max+1;
   if(GRANKA.children[item].children[0].className.includes("-check-")){
-   selectS=selectS+"C"+i+"-"+item+" ";N=N+1;
+	  
+       if(N){selectS=selectS+" "+"C"+i+"-"+item;}
+	    else{selectS="C"+i+"-"+item;}
+	            
+	  N=N+1;
    
    }CAT_SELECT=selectS;
    
