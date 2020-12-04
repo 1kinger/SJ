@@ -644,3 +644,42 @@ txt="No job in joblista..";if(N>1){txt="Smart search with ctrl+F";}
 document.getElementsByClassName("vertical-menu")[0].children[0].innerHTML=txt;}	
 	
 //\\\\\\\\\\\\   TABLATA UPDEJTSKI FUNKCI ////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////
+
+
+ function Get_Set_BLC_Fdata(u){
+          var path="U_I_D/"+u;
+SJ_BASE.child(path).once("value")
+  .then(function(snapshot) {TaaDATA =snapshot.val();            var N=0;
+  for(i in TaaDATA["JOB_LISTA"]){JOB_COD=i; N=N+TaaDATA["JOB_LISTA"][JOB_COD]["FOTO_N"];}
+  
+  MomentalFOTOS=GetMomentalFotos(N);
+  
+  if(N>TaaDATA["PROFIL"]["FMMAX"]){ SJ_BASE.child(path+"/PROFIL/FMMAX").set(N);
+                                 Y=myYear();M=myMonth(0);
+              BJ="PROFIL/BALANCE/J"+Y+"/"+M+"/MMFU";
+  pathBJ=path+BJ;
+  SJ_BASE.child(pathBJ).set(N);}
+ 
+ 
+  });}
