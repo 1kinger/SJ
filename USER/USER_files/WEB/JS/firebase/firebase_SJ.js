@@ -152,7 +152,7 @@ if(a!=true){SJ_BASE.child("U_I_D/"+X_uID+"/PROFIL/REG/veri").set(true);}}
 function ADNI_USER(u,e,UI_X){SJ_NEW={
 PROFIL:{
 	USER:{0:"0"},
-	FOTO:{Fime:"",Flink:false},
+	FOTO:{Fime:"",Flink:false,FMMAX:0},
 	REG:{ID:"",email:"",veri:0},
 	UserLink:{URL:"",URL_status:false},
 	SETINGS:{IME:"",PROFIL_STATUS:true,PROFIL_SEY:""},
@@ -166,7 +166,7 @@ J_DNS:{j_dns:["ADDup"]}};
 User_BEKAP={
 PROFIL:{
 	USER:{0:"0"},
-	FOTO:{Fime:"",Flink:false},
+	FOTO:{Fime:"",Flink:false,FMMAX:0},
 	REG:{ID:"",email:"",veri:0},
 	UserLink:{URL:"",URL_status:false},
 	SETINGS:{IME:"",PROFIL_STATUS:true,PROFIL_SEY:""},

@@ -342,8 +342,7 @@ font-size: 19px;}
 
 /******       foto modalot e tuka      */
 
-.View_FOTO {
-	width: 100%;
+.View_FOTO {max-block-size: 500px;
 	margin: auto;
 	display:table-caption;}
 

@@ -120,7 +120,7 @@ if(M_box){
 C_contact_SHOW.style.display="none";
 M_btn.style.display="inherit";
 	/// da se dodade tkstot kako linkot za otvaranje
-U="https://myall.sytes.net/"+C_contact_INput;
+U="https://mylinks.sytes.net/"+C_contact_INput;
 M_btn.onclick = function() {window.open(U);}
 
 }else{
@@ -142,6 +142,19 @@ SJ_BASE.child("J_DB/USER_BEKAP/"+USER+"/PROFIL/CONTACT/C_text").set(a);}
 
 
 
+function copyToClipboard(a){ if(a!="null"){ const t="https://sezonjobs.sytes.net";
+    const str =t+document.getElementById('SHW_link').innerText;
+    const el = document.createElement('textarea');
+    el.value = str;
+    el.setAttribute('readonly', '');
+    el.style.position = 'absolute';
+    el.style.left = '-9999px';
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);}}
+
+
 function BYproces(){txt="https://www.paypal.com/paypalme/MyallStar"; window.open(txt);}
 
 
@@ -150,9 +163,9 @@ function DROPdwnbtn(){
 
 function par(a){
 if(a==0){modal_JOB.style.display="none";}else//close
-if(a==1){}else//copi link /!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+if(a==1){copyToClipboard(modal_JOB.getAttribute("j_id"));}else//copi link /!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 if(a==2){document.getElementsByClassName("dropbtn")[0].click();}else//cancel
-if(a==3){DELtablata(modal_JOB.getAttribute("j_id"))}
+if(a==3){DELtablata(modal_JOB.getAttribute("j_id"));}
 LOPCI.style="display: none;";}
 
 
@@ -161,7 +174,8 @@ function Job_Formular(){   // Praznata Job formular
 //jobsemata sa se updajtira so taa od SJ da ne se zaboravi !!
 
 JOB_SCHEMA={J_TITLE:"",J_DES:"",J_STATUS:false,J_CAT:[0],J_LOKATION:[0,0],J_ADDRESE:"",J_PEY:[0,[0]],J_TIME:[[0,0],[0,0]],J_CONTACT:["",[false]],J_JOBREF:"",
-
+	WORKER:1,
+	FOTO_N:0,/// br na zivi fotki
        J_FOTO:[
 		   {Fname:"",Flink:""},
 		   {Fname:"",Flink:""},
@@ -182,6 +196,7 @@ JOB_SCHEMA={J_TITLE:"",J_DES:"",J_STATUS:false,J_CAT:[0],J_LOKATION:[0,0],J_ADDR
 	JOB_SCHEMA["J_CONTACT"][1][0]=document.getElementsByClassName("CBmyall")[0].checked;
 	t=document.getElementsByClassName("inputTXT");
 	JOB_SCHEMA["J_TITLE"]=    	  t[0].value;
+	JOB_SCHEMA["WORKER"]=document.getElementById("Wselect").value;
 	JOB_SCHEMA["J_DES"]=     	  t[1].value;
 	JOB_SCHEMA["J_ADDRESE"]=  	  t[2].value;
 	JOB_SCHEMA["J_CAT"]=     	  t[3].value;                
@@ -211,11 +226,14 @@ JOB_SCHEMA=Job_Formular();         if(JOB_ID=="null"){
                            t=new Date().getTime();
                          T=t.toString(36);
                        T=T.slice(2);//kgmrv45x  ==> mrv45x
-			   JOB_COD=T;}else{JOB_COD=JOB_ID;
-								for(i=0;i<12;i++){ 
+			   JOB_COD=T;}else{JOB_COD=JOB_ID;var Foto_N=0;
+								for(i=0;i<12;i++){
+								 if(GTD["JOB_LISTA"][JOB_COD]["J_FOTO"][i]["Flink"]!=""){Foto_N=Foto_N+1;}
+								
 								JOB_SCHEMA["J_FOTO"][i]["Fname"]=GTD["JOB_LISTA"][JOB_COD]["J_FOTO"][i]["Fname"];
 								JOB_SCHEMA["J_FOTO"][i]["Flink"]=GTD["JOB_LISTA"][JOB_COD]["J_FOTO"][i]["Flink"];}
-			 			     }    
+			 			     
+							 JOB_SCHEMA["FOTO_N"]=Foto_N;}    
 
 
 
@@ -229,7 +247,9 @@ S_DNS=USER;///+"@/";//+JOB_COD;              ///////////// !!!!!!!!!!!  editnat 
     SJ_BASE.child("U_I_D/"+X_uID+"/JOB_LINKS/J_Links/"+JOB_COD).set(DnS);
 	SJ_BASE.child("U_I_D/"+X_uID+"/J_DNS/j_dns/"+JOB_COD).set(true);
 	
-	
+/////// da se stavi fincija na cek and sent tuka !!!!!!!!!!!!!!!!!!!!!	
+Get_Set_BLC_Fdata(X_uID);
+/////////////////////////////////!!!!!!
 
 	
 //	SJ_BASE.child("J_DB/JOBS/"+S_DNS+"/"+JOB_COD).push("");
@@ -238,13 +258,9 @@ SJ_BASE.child("J_DB/JOBS/"+S_DNS+"/"+JOB_COD).set(JOB_SCHEMA);
 Dr_n="Dr"+JOB_SCHEMA["J_LOKATION"][0];
 Re_n="Re"+JOB_SCHEMA["J_LOKATION"][1];
 
-if(JOB_SCHEMA["J_STATUS"]){A_D="A";
+if(JOB_SCHEMA["J_STATUS"]){A_D="A";           GET_N_SET_JOBNAME(true,"ACTIV_NAME/"+Dr_n+"/"+Re_n+"/A",DnS);}
+else{A_D="D";}
 
-SJ_BASE.child("ACTIV_NAME/"+Dr_n+"/"+Re_n+"/E/0").set(true);
-}else{A_D="D";}
-
-
-GET_N_SET_JOBNAME(JOB_SCHEMA["J_STATUS"],"ACTIV_NAME/"+Dr_n+"/"+Re_n+"/A",DnS);
 
 SJ_BASE.child("J_SEARCH/"+Dr_n+"/"+Re_n+"/"+A_D+"/"+S_DNS+"/"+JOB_COD).set(JOB_SCHEMA);
 
@@ -252,28 +268,26 @@ modal_JOB.style.display="none";F_5();}
 
 
 
-
-
 function GET_N_SET_JOBNAME(JOBstatus,Job_parh,JOBdns){ /// ZIMA PODATOCI OD DATABAZATA I GI OBNOVUVA VIDLIVATA TABLA
 LINKtxt=Job_parh;
 SJ_BASE.child(LINKtxt).once("value")
-  .then(function(snapshot) {
-        TaaDATA =snapshot.val();
+  .then(function(snapshot) {TaaDATA =snapshot.val();
+  
+if(JOBstatus){ var NOV_N_br; if(TaaDATA==undefined){NOV_N_br="/0";}else
+                             if(TaaDATA[1]==undefined){NOV_N_br="/1";}else{
+ 	                                   for(i=2;i>1;i++){
+                   					   if(TaaDATA[i]==undefined){NOV_N_br="/"+i;break;}}}
 
-if(JOBstatus){  var I=0; for(i in TaaDATA){I=I+1;} var NOV_N_br="/"+I;
-		
 var updates = {}; updates[ NOV_N_br] = DnS;
 
 SJ_BASE.child(Job_parh).update(updates);}
-else{var Z=-1;
-  for(i in TaaDATA){Z=Z+1; if(TaaDATA[i]==JOBdns){ SJ_BASE.child(Job_parh+"/"+Z).set(null);}  ///"""!!!!
-	                break;} 
-			   
-		}
-		
+else{                      
+                               for(i=0;i>-1;i++){
+                               if(TaaDATA[i]==JOBdns){SJ_BASE.child(Job_parh+"/"+i).set(null);break;}}}
+	
   });	
 
-}
+} 
 
 
 function STATS(A){a=A.checked;                 ///// GLAVEN SWICH PROFIL DA LOCKNUVA sednuva akcija
@@ -313,7 +327,7 @@ if(G["PROFIL"]["CONTACT"]["MYALL"]){
 document.getElementsByClassName("Contact_txt")[0].style.display="none";
 
 document.getElementById("MYALLbtn").style.display="inherit";
-U="https://myall.sytes.net/"+G["PROFIL"]["CONTACT"]["C_text"];
+U="https://mylinks.sytes.net/"+G["PROFIL"]["CONTACT"]["C_text"];
 document.getElementById("MYALLbtn").onclick = function() {window.open(U);}
 }else{
 	
@@ -337,6 +351,11 @@ SJ_BASE.child(LINKtxt).once("value")
   .then(function(snapshot) {
                   GTD=snapshot.val();
 puniLokalno(X_uID,GTD);
+
+
+
+
+
 
   });	
 }
@@ -363,6 +382,9 @@ document.getElementById("SHW_link").innerHTML="/"+USER+"#jobID";
 	if(document.getElementsByClassName("j_status")[0].children[0].checked!=true){
 	document.getElementsByClassName("j_status")[0].click();//lontra i klik
 	}
+	
+	document.getElementById("Wselect").value=1;//workers
+	
 	textove=document.getElementsByClassName("inputTXT");
 	for(i=0;i<textove.length;i++){textove[i].value="";}
 	
@@ -402,6 +424,9 @@ document.getElementById("SHW_link").innerHTML="/"+USER+"#"+a;
 	document.getElementsByClassName("CBmyall")[0].checked=THIS_JOB["J_CONTACT"][1][0];
 	t=document.getElementsByClassName("inputTXT");
 	t[0].value=THIS_JOB["J_TITLE"];
+
+document.getElementById("Wselect").value=THIS_JOB["WORKER"];
+	
 	t[1].value=THIS_JOB["J_DES"];
 	t[2].value=THIS_JOB["J_ADDRESE"];
 	t[3].value=THIS_JOB["J_CAT"];
@@ -510,31 +535,6 @@ document.getElementById("noFOTO").style="display:block;";F_5(); }
 }
 
 //\\\\FOTO MODEL END AKTION /////
-
-
-///////////////////////////////////////////////balance model  
-var BLNC_M=document.getElementById("Modal_BALANCE");BLNC_M.style="z-index:3;";
-
-
-function OPEN_BALANCE(){BLNC_M.style.display="block";
-	XX="ova se dodava sea !!";
-	PUNI_T_BALANCE(XX);                          //uerskoto ime
-}
-///////////////////////////////
-
-
-///////////////////////////////
-function PUNI_T_BALANCE(a){/// a parametar
-S_MESEC_SALDO=	document.getElementsByClassName("B_SS")[0];
-UPLATA=			document.getElementsByClassName("B_IN")[0];
-MAX_F_U=		document.getElementsByClassName("B_MMFU")[0];
-E_MESEC_SALDO=	document.getElementsByClassName("B_ES")[0];
-
-
-}
-
-///////////////////////////////////////////////////////
-
 function PROFIL_STATUS(a){
 g=GTD["PROFIL"]["SETINGS"]["PROFIL_STATUS"].value;	
 T="U_I_D/"+X_uID;
@@ -546,7 +546,7 @@ SJ_BASE.child(t+G).set(a);}}
 
 function T_J_switch(a){V=a.checked; var a_d;  
 sifra=a.parentElement.parentElement.children[0].children[0].getAttribute("j_id");
-SEGASNOTO=GTD["JOB_LISTA"][sifra]; SEGASNOTO["J_STATUS"]=V; s_dns=USER+"/"+sifra;
+SEGASNOTO=GTD["JOB_LISTA"][sifra]; SEGASNOTO["J_STATUS"]=V; s_dns=USER+"/"+sifra; 
 
 var Contra_AD; 
 
@@ -559,7 +559,8 @@ if(V){a_d="A";Contra_AD="D";}else{a_d="D";Contra_AD="A";}
 Dr="Dr"+GTD["JOB_LISTA"][sifra]["J_LOKATION"][0];
 Re="Re"+GTD["JOB_LISTA"][sifra]["J_LOKATION"][1];
 
-
+                                                     Xcod=USER+"#"+sifra;
+GET_N_SET_JOBNAME(V,"ACTIV_NAME/"+Dr+"/"+Re+"/A",Xcod);
 
 
 

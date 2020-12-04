@@ -1,0 +1,215 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>BLNC test</title>  <link href="blcCSS.css" rel="stylesheet"/>
+
+<script src="blnc.js" type="text/javascript"></script>  
+</head><body>
+
+
+<p id="info"></p>
+
+<div id="time"></div>
+
+
+
+<span style="display: inherit; margin: 15px;text-align: center;" > <span id="BLNC"></span><br>
+
+fotki momentalno<select  id="Wselect" onchange="MestiFoto(parseInt(this.value));">
+<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+<option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option>
+</select> fotoSet
+
+
+<p id="MAX_M_foto"><p>
+
+
+</span>
+
+
+<p id="UserCng"></p>
+
+<button type="button" id="BLNC_btn" onclick="OPEN_BALANCE();" style="text-align:center;z-index:2;position: absolute;top: 40.3%;/*! right: 50%; */width: 100px;/*! margin: 20px; */left: 50%;margin-left: -50px;padding: 0px;background: goldenrod;font-size: 16px;">
+
+<span class="BLNC">6 / </span><span class="BLNC">38</span><br>
+<span class="BLNC">35,7</span><span> &euro;</span></button>
+
+<span class="IDNO">next saldo - momentalFoto=><span class="IDNO"></span></span>
+<table id="T_BALAMCE"><tbody>
+<tr>
+<td class="B_SS"></td><td class="B_IN"></td><td class="B_MMFU"></td><td class="B_ES"></td>
+</tr>
+
+<tr>
+ <th>Start <br>Saldo &euro;</th>
+ <th>einzalung &euro;</th> 
+ <th>Monatlich<br>MAX foto</th>
+ <th>End <br>Saldo &euro;</th>
+</tr>
+
+<tr>
+<td class="B_SS"></td><td class="B_IN"></td><td class="B_MMFU"></td><td class="B_ES"></td>
+</tr>
+
+<tr>
+<td class="B_SS"></td><td class="B_IN"></td><td class="B_MMFU"></td><td class="B_ES"></td>
+</tr>
+
+<tr>
+<td class="B_SS"></td><td class="B_IN"></td><td class="B_MMFU"></td><td class="B_ES"></td>
+</tr></tbody></table>
+
+
+
+<script>
+var MaxMonat=0;   var MomentalMonat=3; var MomentalBALANCE=14.25;
+
+var BLC=document.getElementById("BLNC");
+var Info=document.getElementById("info");
+
+var Foto_seletor=document.getElementById("Wselect");
+
+var TIME=document.getElementById("time");
+
+var UserMomentalChange=document.getElementById("UserCng");
+
+
+var MMF=document.getElementById("MAX_M_foto");
+
+
+function MestiFoto(a){
+MomentalMonat=a;
+
+MMF.innerHTML="Monat Max e "+MaxFOTOonadi(a);
+
+UserMomentalChange.innerHTML="User namestil momentalno  "+MomentalMonat+" fotinja";
+
+
+Info.innerHTML="Pocetno vreme e "+TargetTime(0)+" a promentata za apdejt e na "+TargetTime(1); }
+
+
+
+function MaxFOTOonadi(a){
+if(a>MaxMonat){MaxMonat=a;}  return MaxMonat;}
+
+
+
+
+setInterval(GetTime,1000);function GetTime(){var dat=new Date();
+        var Deys=dat.getDay();
+		var hr=dat.getHours();
+		var min=dat.getMinutes();
+		var sec=dat.getSeconds();TIME.innerHTML=hr+":"+min+":"+sec;}
+
+
+
+function TargetTime(a){var dat=new Date();          
+        var Deys=dat.getDay();
+		var hr=dat.getHours();
+		var min=dat.getMinutes()+a;                
+		var sec=dat.getSeconds();
+		var TxT=hr+":"+min+":"+sec;
+		
+		
+		return TxT;}
+		
+		
+		
+		
+
+Preset();function Preset(){
+Foto_seletor.value=1;
+
+
+
+UserMomentalChange.innerHTML="User namestil momentalno  "+3+" fotinja";
+
+
+
+
+PreDEEF();
+MestiMESEC(TestMn);
+PUNI_T_BALANCE(TestMn);}
+		
+		/// za punenje ke e manuelno
+		/// za ful apdejt mesecno da se razmisle !!
+		
+		
+		
+		/// od baska user admin da se apdejtne toa ako moze !!
+		
+		
+		/// rulsot ako user uid = admin ili ako e samiot admin e i novata data e > od starata
+		
+
+
+var MomentalBLNC,SratrtMblnc,MMAX,MomentalFOTOS;
+/// na F5 se izveduva !!
+function GetBLCdata(a){                                                M=myMonth(0);     Y=myYear();
+                                                          BJ=a["PROFIL"]["BALANCE"]["J"][Y][M];
+                           SratrtMblnc=GetMESECENSTARTBLC(BJ["S_M_S"]);
+                                       MMAX=GetMMAX(BJ["MMFU"]); 
+ MomentalBLNC=presmetajBLC(SratrtMblnc,MMAX);
+                                
+ 
+ BLC_IDEN_MESEC(MomentalBLNC,MomentalFOTOS);}
+
+
+
+
+
+ function Get_Set_BLC_Fdata(u){
+          var path="U_I_D/"+u;
+SJ_BASE.child(path).once("value")
+  .then(function(snapshot) {TaaDATA =snapshot.val();            var N=0;
+  for(i in TaaDATA["JOB_LISTA"]){JOB_COD=i; N=N+TaaDATA["JOB_LISTA"][JOB_COD]["FOTO_N"];}
+  
+  MomentalFOTOS=GetMomentalFotos(N);
+  
+  if(N>TaaDATA["PROFIL"]["FMMAX"]){ SJ_BASE.child(path+"/PROFIL/FMMAX").set(N);
+                                 Y=myYear();M=myMonth(0);
+              BJ="PROFIL/BALANCE/J"+Y+"/"+M+"/MMFU";
+  pathBJ=path+BJ;
+  SJ_BASE.child(pathBJ).set(N);}
+ 
+ 
+  });}
+
+
+// da go postne na denesniot mesec taa N vrednost   taj rulsot da se onadeee  !!!!!!!!!! ili ako e admin
+function myYear(){var J=new Date(); var Y="J_"+J.getUTCFullYear(); return Y;}
+function myMonth(a){var dat=new Date();MON=dat.getMonth();A=a+1; m=MON+A; M="M_"+m; return M;}
+
+
+
+////////////////////// ovije ke go pravat frontendot
+function presmetajBLC(a,b){k=0.75;
+                   A=a-(k*b);
+document.getElementsByClassName("BLNC")[2].innerHTML=A;
+document.getElementsByClassName("B_ES")[0].innerHTML=A;
+return A;}
+
+function GetMomentalFotos(a){
+document.getElementsByClassName("BLNC")[0].innerHTML=a+" /"; return a;}
+
+function GetMMAX(a){
+document.getElementsByClassName("BLNC")[1].innerHTML=a;return a;}
+
+function GetMESECENSTARTBLC(a){ return a;}
+
+
+
+function BLC_IDEN_MESEC(a,b){k=0.75;/// da onade na 2 decimali 
+                   A=a-(k*b);
+				   
+var Pretpostavka=document.getElementsByClassName("IDNO")[1];
+Pretpostavka.innerHTML=A+" &euro;";
+
+Pretpostavka.style.opacity="0.75";
+if(A>0){Pretpostavka.style.color="green";}else{Pretpostavka.style.color="red";}}
+
+
+</script>
+
+    
+
+
+</body></html>
