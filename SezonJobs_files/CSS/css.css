@@ -3,6 +3,13 @@ body, html {
   font-family: "Inconsolata", sans-serif;
 }
 
+
+#CAT_SELEKT{
+	text-align: center;
+	position: relative;
+	width: 100%;
+}
+
 .bgimg {
   background-position: center;
   background-size: cover;

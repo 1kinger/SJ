@@ -59,7 +59,7 @@ for(i=1;i<33;i++){
  
 
 function SERCtabele(a){  
-if(a!=0){Tabla.style="display: contents;"; document.getElementById("CAT_SELEKT").style.display="block ruby";
+if(a!=0){Tabla.style="display: contents;"; document.getElementById("CAT_SELEKT").style.display="block";
 defalNULA(); 
 
 SLKT[1]=parseInt(a);  GET_DR_RE(SLKT);}

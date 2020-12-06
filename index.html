@@ -5,8 +5,7 @@
 <link rel="stylesheet" href="SezonJobs_files/CSS/css.css">
 
 
-
-<!-- <script src='https://kit.fontawesome.com/a076d05399.js'></script> -->
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -65,7 +64,7 @@
    <option value="30"></option><option value="31"></option><option value="32"></option></select>
   
     <br>
-<div id="CAT_SELEKT" style="text-align: center;position: relative;width: 100%;"><div class="dropdown dropdown-tree" id="example"></div></div>
+<div id="CAT_SELEKT"><div class="dropdown dropdown-tree" id="example"></div></div>
 <br><br><br>
 
   <ul id="accordion3" class="a11yAccordion a11yAccordion-light">
@@ -133,7 +132,7 @@ and taste.</p>
 </div>
 
 <!-- End page content -->
-</div>
+
 
 <!-- Footer -->
 <footer class="w3-center w3-light-grey w3-padding-48 w3-large">
@@ -175,7 +174,10 @@ and taste.</p>
 
 <script type="text/javascript" src="SezonJobs_files/DATA/CEK_CAT/cek_cat.js" ></script>
 <script type="text/javascript" src="SezonJobs_files/DATA/CEK_CAT/dropdowntree.js" ></script>
-<script>$("#example").DropDownTree(options);</script>
+<script>$("#example").DropDownTree(options);
+
+document.getElementsByClassName("dropdown-menu")[0].style="max-height: 3000px;margin-left: 22%;";
+</script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js" type="text/javascript"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
