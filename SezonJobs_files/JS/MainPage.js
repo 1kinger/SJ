@@ -92,6 +92,8 @@ for(i=1;i<Tabla.childElementCount;i++){
 }
 
 
+var JobN;
+
 function GET_DR_RE(a){
 chekURL="ACTIV_NAME/Dr"+a[0]+"/Re"+a[1]+"/A";
 
@@ -168,8 +170,7 @@ CAT=TITLE.parentElement.parentElement.parentElement;
 //Tabla.children[j].children[0].innerHTML="jas sum brojkata "+j+" aadaaa";
 }
 
-
-var JobN;function AdLISNER(){
+function AdLISNER(){
 JobN=document.getElementsByClassName("caret")[0];
 JobN.classList.add("JobN");
 
